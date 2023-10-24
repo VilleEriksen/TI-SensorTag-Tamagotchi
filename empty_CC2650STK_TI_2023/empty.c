@@ -48,36 +48,7 @@
 /* Board Header files */
 #include "Board.h"
 
-#define HEARTBEATSTACK 512
-
-Task_Struct heartBeatStruct;
-Char heartBeatStack[HEARTBEATSTACK];
-
-/* Pin driver handle */
-static PIN_Handle ledPinHandle;
-static PIN_State ledPinState;
-
-/*
- * Application LED pin configuration table:
- *   - All LEDs board LEDs are off.
- */
-PIN_Config ledPinTable[] = {
-    Board_LED0 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-    PIN_TERMINATE
-};
-
-/*
- *  ======== heartBeatFxn ========
- *  Toggle the Board_LED0. The Task_sleep is determined by arg0 which
- *  is configured for the heartBeat Task instance.
- */
-Void heartBeatFxn(UArg arg0, UArg arg1)
-{
-    while (1) {
-        Task_sleep((UInt)arg0);
-        PIN_setOutputValue(ledPinHandle, Board_LED0, !PIN_getOutputValue(Board_LED0));
-    }
-}
+#include "gyro.h"
 
 /*
  *  ======== main ========
@@ -88,22 +59,12 @@ int main(void)
 
     /* Call board init functions */
     Board_initGeneral();
+    Board_initI2C();
 
-    /* Construct heartBeat Task  thread */
-    Task_Params_init(&heartBeatParams);
-    heartBeatParams.arg0 = 1000000 / Clock_tickPeriod;
-    heartBeatParams.stackSize = HEARTBEATSTACK;
-    heartBeatParams.stack = &heartBeatStack;
-    Task_construct(&heartBeatStruct, (Task_FuncPtr)heartBeatFxn, &heartBeatParams, NULL);
-
-    /* Open LED pins */
-    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
-    if(!ledPinHandle) {
-        System_abort("Error initializing board LED pins\n");
-    }
-
-    System_printf("Hello world\n");
+    System_printf("Gyro test\n");
     System_flush();
+
+    initMPU920();
 
     /* Start BIOS */
     BIOS_start();

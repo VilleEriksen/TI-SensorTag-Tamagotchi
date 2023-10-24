@@ -12,7 +12,8 @@ CMD_SRCS += \
 C_SRCS += \
 ../CC2650STK.c \
 ../ccfg.c \
-../empty.c 
+../empty.c \
+../gyro.c 
 
 GEN_CMDS += \
 ./configPkg/linker.cmd 
@@ -27,7 +28,8 @@ GEN_MISC_DIRS += \
 C_DEPS += \
 ./CC2650STK.d \
 ./ccfg.d \
-./empty.d 
+./empty.d \
+./gyro.d 
 
 GEN_OPTS += \
 ./configPkg/compiler.opt 
@@ -35,7 +37,8 @@ GEN_OPTS += \
 OBJS += \
 ./CC2650STK.obj \
 ./ccfg.obj \
-./empty.obj 
+./empty.obj \
+./gyro.obj 
 
 GEN_MISC_DIRS__QUOTED += \
 "configPkg/" 
@@ -43,12 +46,14 @@ GEN_MISC_DIRS__QUOTED += \
 OBJS__QUOTED += \
 "CC2650STK.obj" \
 "ccfg.obj" \
-"empty.obj" 
+"empty.obj" \
+"gyro.obj" 
 
 C_DEPS__QUOTED += \
 "CC2650STK.d" \
 "ccfg.d" \
-"empty.d" 
+"empty.d" \
+"gyro.d" 
 
 GEN_FILES__QUOTED += \
 "configPkg/linker.cmd" \
@@ -57,6 +62,7 @@ GEN_FILES__QUOTED += \
 C_SRCS__QUOTED += \
 "../CC2650STK.c" \
 "../ccfg.c" \
-"../empty.c" 
+"../empty.c" \
+"../gyro.c" 
 
 

@@ -23,40 +23,34 @@ PIN_Config cBuzzer[] = {
     PIN_TERMINATE
 };
 
+static int a[] = {523, 0,    784,  659, 392, 0,    784,  659, 523,  0,    784,  659, 392, 0,    784,  659,
+                  440, 784,  659,  554, 330, 784,  659,  554, 440,  880,  659,  554, 330, 1109, 659,  554,
+                  587, 0,    1047, 740, 440, 0,    1047, 740, 587,  0,    1047, 740, 440, 0,    1047, 740,
+                  698, 1245, 1047, 831, 523, 1245, 1047, 813, 698,  1397, 1047, 831, 523, 1245, 1047, 831};
+
 //static int a[] = {1047, 0, 1047, 0, 523, 0, 784, 0, 784, 831, 784, 784, 392, 0, 932, 1109, 1047, 0, 1047, 415, 392, 0, 0, 1245, 1397, 0, 1397, 523, 1109, 1397, 1109, 1109};
-static int a[] = {1319, 523, 1319, 523, 1319, 523, 1397, 0, 1175, 392, 1175, 392, 1175, 392, 1319, 0, 1046, 349, 1046, 349, 1175, 392, 1046, 523, 784};
+//static int a[] = {1319, 523, 1319, 523, 1319, 523, 1397, 0, 1175, 392, 1175, 392, 1175, 392, 1319, 0, 1046, 349, 1046, 349, 1175, 392, 1046, 523, 784};
 int *song =  &a[0];
 
 int songI;
-//int songLength = 32;
-int songLength = 25;
+int songLength = 64;
+//int songLength = 25;
 
 char buzzerOpened;
 
+char loopMusic;
+
 void musixFxn(UArg arg0) {
     if (songI >= songLength) {
-        // Clock_delete(&musicHandle);
-
-        song =  &a[0];
-        songI = 0;
-        //return;
+        if (loopMusic) {
+            song =  &a[0];
+            songI = 0;
+        } else {
+            buzzerClose();
+            Clock_delete(&musicHandle);
+            return;
+        }
     }
-
-    /*
-    if (*song == -1 && buzzerOpened) {
-        buzzerClose();
-        buzzerOpened = 0;
-
-        return;
-    }
-
-    if (!buzzerOpened) {
-        buzzerOpen(hBuzzer);
-        buzzerOpened = 1;
-    }
-    */
-
-
 
     buzzerSetFrequency(*song);
     song++;
@@ -75,9 +69,11 @@ void initMusic() {
     musicParams.startFlag = TRUE;
 }
 
-void startMusic() {
+void startMusic(char loopMusicVar) {
     songI = 0;
     buzzerOpened = 0;
+
+    loopMusic = loopMusicVar;
 
     buzzerOpen(hBuzzer);
 
