@@ -205,6 +205,7 @@ music.obj: /home/linuxlite/ti/tirtos_cc13xx_cc26xx_2_21_01_08/products/tidrivers
 music.obj: /home/linuxlite/ti/tirtos_cc13xx_cc26xx_2_21_01_08/products/tidrivers_cc13xx_cc26xx_2_21_01_01/packages/ti/drivers/utils/List.h
 music.obj: ../CC2650STK.h
 music.obj: ../buzzer.h
+music.obj: ../music.h
 
 ../music.c:
 
@@ -615,4 +616,6 @@ music.obj: ../buzzer.h
 ../CC2650STK.h:
 
 ../buzzer.h:
+
+../music.h:
 

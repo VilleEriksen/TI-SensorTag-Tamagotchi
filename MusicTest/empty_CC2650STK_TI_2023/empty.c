@@ -21,7 +21,7 @@ Int main(void) {
     System_flush();
 
     initMusic();
-    startMusic(1);
+    startMusic(&HAPPY_THEME, 0);
 
     /* Start BIOS */
     BIOS_start();

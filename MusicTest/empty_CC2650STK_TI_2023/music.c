@@ -12,6 +12,9 @@
 /* Board Header files */
 #include "Board.h"
 #include "buzzer.h"
+#include "music.h"
+
+// Task vars
 
 static Clock_Handle musicHandle;
 static Clock_Params musicParams;
@@ -23,27 +26,20 @@ PIN_Config cBuzzer[] = {
     PIN_TERMINATE
 };
 
-static int a[] = {523, 0,    784,  659, 392, 0,    784,  659, 523,  0,    784,  659, 392, 0,    784,  659,
-                  440, 784,  659,  554, 330, 784,  659,  554, 440,  880,  659,  554, 330, 1109, 659,  554,
-                  587, 0,    1047, 740, 440, 0,    1047, 740, 587,  0,    1047, 740, 440, 0,    1047, 740,
-                  698, 1245, 1047, 831, 523, 1245, 1047, 813, 698,  1397, 1047, 831, 523, 1245, 1047, 831};
+// Music vars
 
-//static int a[] = {1047, 0, 1047, 0, 523, 0, 784, 0, 784, 831, 784, 784, 392, 0, 932, 1109, 1047, 0, 1047, 415, 392, 0, 0, 1245, 1397, 0, 1397, 523, 1109, 1397, 1109, 1109};
 //static int a[] = {1319, 523, 1319, 523, 1319, 523, 1397, 0, 1175, 392, 1175, 392, 1175, 392, 1319, 0, 1046, 349, 1046, 349, 1175, 392, 1046, 523, 784};
-int *song =  &a[0];
 
-int songI;
-int songLength = 64;
-//int songLength = 25;
+struct song *songStruct;
 
-char buzzerOpened;
-
-char loopMusic;
+uint16_t songI;
+bool loopMusic;
 
 void musixFxn(UArg arg0) {
-    if (songI >= songLength) {
+    if (songI >= songStruct->length) {
         if (loopMusic) {
-            song =  &a[0];
+            // Return to the starting pointer.
+            (songStruct->song) -= songI;
             songI = 0;
         } else {
             buzzerClose();
@@ -52,8 +48,8 @@ void musixFxn(UArg arg0) {
         }
     }
 
-    buzzerSetFrequency(*song);
-    song++;
+    buzzerSetFrequency(*(songStruct->song));
+    (songStruct->song)++;
     songI++;
 }
 
@@ -65,20 +61,18 @@ void initMusic() {
     }
 
     Clock_Params_init(&musicParams);
-    musicParams.period = 125000 / Clock_tickPeriod;
     musicParams.startFlag = TRUE;
 }
 
-void startMusic(char loopMusicVar) {
-    songI = 0;
-    buzzerOpened = 0;
-
+void startMusic(struct song *songVar, bool loopMusicVar) {
+    songStruct = songVar;
     loopMusic = loopMusicVar;
 
     buzzerOpen(hBuzzer);
 
-    musicHandle = Clock_create((Clock_FuncPtr)musixFxn, 250000 / Clock_tickPeriod, &musicParams, NULL);
+    musicParams.period = songVar->speed / Clock_tickPeriod;
+    musicHandle = Clock_create((Clock_FuncPtr)musixFxn, songVar->speed / Clock_tickPeriod, &musicParams, NULL);
     if (musicHandle == NULL) {
-        System_abort("Music create failed");
+        System_abort("Music create failed!");
     }
 }
