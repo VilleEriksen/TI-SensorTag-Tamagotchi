@@ -55,8 +55,6 @@
  */
 int main(void)
 {
-    Task_Params heartBeatParams;
-
     /* Call board init functions */
     Board_initGeneral();
     Board_initI2C();

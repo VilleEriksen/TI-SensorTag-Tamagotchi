@@ -7,7 +7,11 @@
 #include <ti/drivers/i2c/I2CCC26XX.h>
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
+
+#include <stdio.h>
+
 #include "Board.h"
+#include "gyro.h"
 #include "sensors/mpu9250.h"
 
 #define STACKSIZE 2048
@@ -28,6 +32,13 @@ static const I2CCC26XX_I2CPinCfg i2cMPUCfg = {
     .pinSDA = Board_I2C0_SDA1,
     .pinSCL = Board_I2C0_SCL1
 };
+
+struct avgArray axAvg;
+struct avgArray ayAvg;
+struct avgArray azAvg;
+struct avgArray gxAvg;
+struct avgArray gyAvg;
+struct avgArray gzAvg;
 
 Void sensorFxn(UArg arg0, UArg arg1) {
     float ax, ay, az, gx, gy, gz;
@@ -70,11 +81,18 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         // MPU ask data
         mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
 
-        sprintf(printString, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f", ax, ay, az, gx, gy, gz);
+        updateAvgArray(&axAvg, ax);
+        updateAvgArray(&ayAvg, ay);
+        updateAvgArray(&azAvg, az);
+        updateAvgArray(&gxAvg, gx);
+        updateAvgArray(&gyAvg, gy);
+        updateAvgArray(&gzAvg, gz);
+
+        sprintf(printString, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", axAvg.avg, ayAvg.avg, azAvg.avg, gxAvg.avg, gyAvg.avg, gzAvg.avg);
         System_printf(printString);
         System_flush();
 
-        // Sleep 100ms
+        // Sleep 10ms
         Task_sleep(100000 / Clock_tickPeriod);
     }
 
@@ -102,4 +120,42 @@ void initMPU920() {
     if (task == NULL) {
         System_abort("Task create failed!");
     }
+
+    // Initalize the average arrays.
+    initAvgArray(&axAvg);
+    initAvgArray(&ayAvg);
+    initAvgArray(&azAvg);
+    initAvgArray(&gxAvg);
+    initAvgArray(&gyAvg);
+    initAvgArray(&gzAvg);
+}
+
+void initAvgArray(struct avgArray *avgArrayPar) {
+    int i;
+    for (i = 0; i < 10; i++) {
+        avgArrayPar->arr[i] = i;
+    }
+
+    avgArrayPar->avg = 0.0;
+    avgArrayPar->i = 0;
+}
+
+void updateAvgArray(struct avgArray *avgArrayPar, float val) {
+    avgArrayPar->arr[avgArrayPar->i] = val;
+    avgArrayPar->i = (avgArrayPar->i + 1) % 10;
+
+    avgArrayPar->avg = calcAvg(avgArrayPar->arr);
+}
+
+float calcAvg(float arrPar[]) {
+    float avg = 0.0;
+
+    int i;
+    for (i = 0; i < 10; i++) {
+        avg += arrPar[i];
+    }
+
+    avg /= 10.0;
+
+    return avg;
 }

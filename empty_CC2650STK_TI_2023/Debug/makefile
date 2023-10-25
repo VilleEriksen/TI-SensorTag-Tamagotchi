@@ -2,7 +2,9 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-CG_TOOL_ROOT := /home/linuxlite/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS
+SHELL = cmd.exe
+
+CG_TOOL_ROOT := C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS
 
 GEN_OPTS__FLAG := --cmd_file="configPkg/compiler.opt" 
 GEN_CMDS__FLAG := -l"configPkg/linker.cmd" 
@@ -15,13 +17,13 @@ ORDERED_OBJS += \
 "./sensors/mpu9250.obj" \
 "../CC2650STK.cmd" \
 $(GEN_CMDS__FLAG) \
--l"/home/linuxlite/ti/tirtos_cc13xx_cc26xx_2_21_01_08/products/cc26xxware_2_24_03_17272/driverlib/bin/ccs/driverlib.lib" \
+-l"D:/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc26xxware_2_24_03_17272/driverlib/bin/ccs/driverlib.lib" \
 -llibc.a \
 
 -include ../makefile.init
 
-RM := rm -rf
-RMDIR := rm -rf
+RM := DEL /F
+RMDIR := RMDIR /S/Q
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -145,22 +147,22 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 empty_CC2650STK_TI.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"/home/linuxlite/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=none -me --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"empty_CC2650STK_TI.map" --heap_size=0 --stack_size=256 -i"/home/linuxlite/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"/home/linuxlite/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC2650STK_TI_linkInfo.xml" --rom_model -o "empty_CC2650STK_TI.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=none -me --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"empty_CC2650STK_TI.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC2650STK_TI_linkInfo.xml" --rom_model -o "empty_CC2650STK_TI.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 empty_CC2650STK_TI.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: Arm Hex Utility'
-	"/home/linuxlite/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off --intel -o "empty_CC2650STK_TI.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off --intel -o "empty_CC2650STK_TI.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC2650STK.obj" "ccfg.obj" "empty.obj" "gyro.obj" "sensors/mpu9250.obj" 
-	-$(RM) "CC2650STK.d" "ccfg.d" "empty.d" "gyro.d" "sensors/mpu9250.d" 
+	-$(RM) "CC2650STK.obj" "ccfg.obj" "empty.obj" "gyro.obj" "sensors\mpu9250.obj" 
+	-$(RM) "CC2650STK.d" "ccfg.d" "empty.d" "gyro.d" "sensors\mpu9250.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '
