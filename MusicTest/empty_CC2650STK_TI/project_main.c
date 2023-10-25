@@ -1,5 +1,6 @@
 /* C Standard library */
 #include <stdio.h>
+#include <string.h>
 
 /* XDCtools files */
 #include <xdc/std.h>
@@ -98,7 +99,8 @@ Void uartTaskFxn(UArg arg0, UArg arg1) {
         UART_write(uart, luxString, strlen(luxString));
 
         // Just for sanity check for exercise, you can comment this out
-        System_printf("uartTask\n");
+        // System_printf("uartTask\n");
+        System_printf("\n");
         System_flush();
 
         // Once per second, you can modify this

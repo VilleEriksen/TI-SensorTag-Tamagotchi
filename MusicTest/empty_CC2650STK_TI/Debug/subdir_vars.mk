@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 CFG_SRCS += \
 ../empty.cfg 
@@ -38,7 +40,7 @@ OBJS += \
 ./project_main.obj 
 
 GEN_MISC_DIRS__QUOTED += \
-"configPkg/" 
+"configPkg\" 
 
 OBJS__QUOTED += \
 "CC2650STK.obj" \
@@ -51,8 +53,8 @@ C_DEPS__QUOTED += \
 "project_main.d" 
 
 GEN_FILES__QUOTED += \
-"configPkg/linker.cmd" \
-"configPkg/compiler.opt" 
+"configPkg\linker.cmd" \
+"configPkg\compiler.opt" 
 
 C_SRCS__QUOTED += \
 "../CC2650STK.c" \
