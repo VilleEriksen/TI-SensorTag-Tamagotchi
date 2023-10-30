@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016, Texas Instruments Incorporated
+ * Copyright (c) 2016, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,45 +30,34 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- *  ======== empty.c ========
+/** ============================================================================
+ *  @file       buzzer.h
+ *
+ *  @brief      PWM-based buzzer interface.
+ *
+ *  ============================================================================
  */
-/* XDCtools Header files */
-#include <xdc/std.h>
-#include <xdc/runtime/System.h>
-
-/* BIOS Header files */
-#include <ti/sysbios/BIOS.h>
-#include <ti/sysbios/knl/Clock.h>
-#include <ti/sysbios/knl/Task.h>
-
-/* TI-RTOS Header files */
-#include <ti/drivers/PIN.h>
-
-/* Board Header files */
+#ifndef _BUZZER_H_
+#define _BUZZER_H_
+/* -----------------------------------------------------------------------------
+*                                          Includes
+* ------------------------------------------------------------------------------
+*/
 #include "Board.h"
-#include "gyro.h"
-#include "music.h"
 
-/*
- *  ======== main ========
- */
-int main(void)
-{
-    /* Call board init functions */
-    Board_initGeneral();
-    Board_initI2C();
+/* -----------------------------------------------------------------------------
+*                                          Constants
+* ------------------------------------------------------------------------------
+*/
+#define BUZZER_FREQ_MIN            3
+#define BUZZER_FREQ_MAX            8000
 
-    System_printf("Gyro and music test\n");
-    System_flush();
+/* -----------------------------------------------------------------------------
+*                                          Functions
+* ------------------------------------------------------------------------------
+*/
+void buzzerOpen(PIN_Handle hPinGpio);
+bool buzzerSetFrequency(uint16_t frequency);
+void buzzerClose(void);
 
-    initMusic();
-    startMusic(&HAPPY_THEME, false);
-
-    initMPU920();
-
-    /* Start BIOS */
-    BIOS_start();
-
-    return (0);
-}
+#endif

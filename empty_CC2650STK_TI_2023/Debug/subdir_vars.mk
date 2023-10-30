@@ -13,9 +13,11 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../CC2650STK.c \
+../buzzer.c \
 ../ccfg.c \
 ../empty.c \
-../gyro.c 
+../gyro.c \
+../music.c 
 
 GEN_CMDS += \
 ./configPkg/linker.cmd 
@@ -29,33 +31,41 @@ GEN_MISC_DIRS += \
 
 C_DEPS += \
 ./CC2650STK.d \
+./buzzer.d \
 ./ccfg.d \
 ./empty.d \
-./gyro.d 
+./gyro.d \
+./music.d 
 
 GEN_OPTS += \
 ./configPkg/compiler.opt 
 
 OBJS += \
 ./CC2650STK.obj \
+./buzzer.obj \
 ./ccfg.obj \
 ./empty.obj \
-./gyro.obj 
+./gyro.obj \
+./music.obj 
 
 GEN_MISC_DIRS__QUOTED += \
 "configPkg\" 
 
 OBJS__QUOTED += \
 "CC2650STK.obj" \
+"buzzer.obj" \
 "ccfg.obj" \
 "empty.obj" \
-"gyro.obj" 
+"gyro.obj" \
+"music.obj" 
 
 C_DEPS__QUOTED += \
 "CC2650STK.d" \
+"buzzer.d" \
 "ccfg.d" \
 "empty.d" \
-"gyro.d" 
+"gyro.d" \
+"music.d" 
 
 GEN_FILES__QUOTED += \
 "configPkg\linker.cmd" \
@@ -63,8 +73,10 @@ GEN_FILES__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../CC2650STK.c" \
+"../buzzer.c" \
 "../ccfg.c" \
 "../empty.c" \
-"../gyro.c" 
+"../gyro.c" \
+"../music.c" 
 
 
