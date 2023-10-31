@@ -11,23 +11,31 @@
 #include "util/textMenu.h"
 #include "menu.h"
 
-void updateMenu() {
-    char printString[16];
-
+void display_menuUpdate() {
     int i;
     for (i = 0; i < currentMenu->size; i++) {
-        if (i == currentMenu->selectedI) {
-            printString = "> ";
-            strcat(printString, currentMenu->selectedItem->itemText);
-        } else {
-            printString = "  ";
-            strcat(printString, currentMenu->selectedItem->itemText);
-        }
+        if (i == currentMenu->selectedI) System_printf(SELECTED_ITEM);
+        else System_printf(NORMAL_ITEM);
 
-        System_printf(printString);
+        System_printf((currentMenu->menuItems + i)->itemText);
+        System_printf("\n");
     }
 
+    System_printf("\n\n\n\n\n\n\n\n\n\n\n");
     System_flush();
 }
 
+void display_menuUp() {
+    menu_moveBy(-1);
+    display_menuUpdate();
+}
 
+void display_menuDown() {
+    menu_moveBy(1);
+    display_menuUpdate();
+}
+
+void display_menuActivate() {
+    menu_activate(1);
+    display_menuUpdate();
+}

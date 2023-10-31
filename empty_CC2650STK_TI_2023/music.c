@@ -48,8 +48,7 @@ void musixFxn(UArg arg0) {
         }
     }
 
-    buzzerSetFrequency(*(songStruct->song));
-    (songStruct->song)++;
+    buzzerSetFrequency(songStruct->song[songI]);
     songI++;
 }
 
@@ -67,6 +66,7 @@ void initMusic() {
 void startMusic(struct song *songVar, bool loopMusicVar) {
     songStruct = songVar;
     loopMusic = loopMusicVar;
+    songI = 0;
 
     buzzerOpen(hBuzzer);
 

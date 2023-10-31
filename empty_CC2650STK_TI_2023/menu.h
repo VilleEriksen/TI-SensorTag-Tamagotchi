@@ -8,10 +8,12 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#define SELECTED_ITEM = "> "
-#define NOT_SELECTED_ITEM = "  "
+#define SELECTED_ITEM "> "
+#define NORMAL_ITEM "  "
 
-void updateMenu();
-
+void display_menuUpdate();
+void display_menuUp();
+void display_menuDown();
+void display_menuActivate();
 
 #endif /* MENU_H_ */

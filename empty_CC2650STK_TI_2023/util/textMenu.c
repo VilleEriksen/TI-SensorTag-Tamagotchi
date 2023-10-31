@@ -5,10 +5,11 @@
  *      Author: Ville
  */
 
+#include <stdlib.h>
 #include "textMenu.h"
 
 void menu_moveBy(int steps) {
-    currentMenu->selectedI = (currentMenu->selectedI + steps) % currentMenu->size;
+    currentMenu->selectedI = abs(currentMenu->selectedI + steps) % currentMenu->size;
     currentMenu->selectedItem = currentMenu->menuItems + currentMenu->selectedI;
 }
 
