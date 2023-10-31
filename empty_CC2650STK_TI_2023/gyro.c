@@ -44,6 +44,7 @@ struct avgArray* gzAvg;
 Void sensorFxn(UArg arg0, UArg arg1) {
     float ax, ay, az, gx, gy, gz;
     char printString[50];
+    char printString2[50];
 
     I2C_Handle i2cMPU; // Own i2c-interface for MPU9250 sensor
     I2C_Params i2cMPUParams;
@@ -89,9 +90,12 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         updateAvgArray(gyAvg, gy);
         updateAvgArray(gzAvg, gz);
 
-        //sprintf(printString, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
-        //ystem_printf(printString);
-        //System_flush();
+        sprintf(printString, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
+        System_printf(printString);
+
+        sprintf(printString2, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n\n", ax, ay, az, gx, gy, gz);
+        System_printf(printString2);
+        System_flush();
 
         // Sleep 100ms
         Task_sleep(100000 / Clock_tickPeriod);

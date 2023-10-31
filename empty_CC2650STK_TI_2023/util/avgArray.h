@@ -8,16 +8,18 @@
 #ifndef UTIL_AVGARRAY_H_
 #define UTIL_AVGARRAY_H_
 
+#include "Board.h"
+
 struct avgArray {
     float* arr;
     float avg;
-    int i;
-    int size;
+    uint8_t i;
+    uint8_t size;
 };
 
-struct avgArray* createAvgArray(int size, float startVal);
+struct avgArray* createAvgArray(uint8_t size, float startVal);
 void freeAvgArray(struct avgArray* arr);
 void updateAvgArray(struct avgArray *arr, float val);
-float calcAvg(float* arr, int size);
+float calcAvg(float* arr, uint8_t size);
 
 #endif /* UTIL_AVGARRAY_H_ */

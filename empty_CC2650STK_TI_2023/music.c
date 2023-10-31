@@ -76,3 +76,11 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
         System_abort("Music create failed!");
     }
 }
+
+void playHappyTheme() {
+    startMusic(&HAPPY_THEME, false);
+}
+
+void playAngryTheme() {
+    startMusic(&ANGRY_THEME, false);
+}

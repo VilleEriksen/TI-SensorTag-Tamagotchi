@@ -15,8 +15,10 @@ C_SRCS += \
 ../CC2650STK.c \
 ../buzzer.c \
 ../ccfg.c \
+../display.c \
 ../empty.c \
 ../gyro.c \
+../menu.c \
 ../music.c 
 
 GEN_CMDS += \
@@ -33,8 +35,10 @@ C_DEPS += \
 ./CC2650STK.d \
 ./buzzer.d \
 ./ccfg.d \
+./display.d \
 ./empty.d \
 ./gyro.d \
+./menu.d \
 ./music.d 
 
 GEN_OPTS += \
@@ -44,8 +48,10 @@ OBJS += \
 ./CC2650STK.obj \
 ./buzzer.obj \
 ./ccfg.obj \
+./display.obj \
 ./empty.obj \
 ./gyro.obj \
+./menu.obj \
 ./music.obj 
 
 GEN_MISC_DIRS__QUOTED += \
@@ -55,16 +61,20 @@ OBJS__QUOTED += \
 "CC2650STK.obj" \
 "buzzer.obj" \
 "ccfg.obj" \
+"display.obj" \
 "empty.obj" \
 "gyro.obj" \
+"menu.obj" \
 "music.obj" 
 
 C_DEPS__QUOTED += \
 "CC2650STK.d" \
 "buzzer.d" \
 "ccfg.d" \
+"display.d" \
 "empty.d" \
 "gyro.d" \
+"menu.d" \
 "music.d" 
 
 GEN_FILES__QUOTED += \
@@ -75,8 +85,10 @@ C_SRCS__QUOTED += \
 "../CC2650STK.c" \
 "../buzzer.c" \
 "../ccfg.c" \
+"../display.c" \
 "../empty.c" \
 "../gyro.c" \
+"../menu.c" \
 "../music.c" 
 
 

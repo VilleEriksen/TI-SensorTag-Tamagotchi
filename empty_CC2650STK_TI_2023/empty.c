@@ -48,7 +48,9 @@
 /* Board Header files */
 #include "Board.h"
 #include "gyro.h"
-#include "music.h"
+#include "display.h"
+#include "util/textMenu.h"
+#include "menu.h"
 
 /*
  *  ======== main ========
@@ -57,15 +59,19 @@ int main(void)
 {
     /* Call board init functions */
     Board_initGeneral();
-    Board_initI2C();
+    //Board_initI2C();
 
     System_printf("Gyro and music test\n");
     System_flush();
 
-    initMusic();
-    startMusic(&HAPPY_THEME, false);
+    //initMusic();
+    //startMusic(&HAPPY_THEME, false);
 
-    initMPU920();
+    //initMPU920();
+
+    menu_init();
+    updateMenu();
+    //initDisplay();
 
     /* Start BIOS */
     BIOS_start();

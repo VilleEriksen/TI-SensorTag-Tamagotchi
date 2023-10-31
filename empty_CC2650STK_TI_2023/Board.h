@@ -39,6 +39,8 @@ extern "C" {
 
 #include <ti/drivers/Power.h>
 
+//#define BOARD_DISPLAY_EXCLUDE_UART
+
 #include "CC2650STK.h"
 
 /* These #defines allow us to reuse TI-RTOS across other device families */

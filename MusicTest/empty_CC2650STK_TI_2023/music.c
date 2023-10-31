@@ -1,4 +1,4 @@
-/* XDCtools files */
+w/* XDCtools files */
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 

@@ -29,3 +29,5 @@ static struct song ANGRY_THEME = { &ANGRY_THEME_NOTES[0], 64, 175000 };
 void musixFxn(UArg arg0);
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
+void playHappyTheme();
+void playAngryTheme();
