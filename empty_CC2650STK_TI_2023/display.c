@@ -44,8 +44,6 @@ void displayTask(UArg arg0, UArg arg1) {
                strcpy(lineText + 2, (currentMenu->menuItems + i)->itemText);
                Display_print0(hDisplayLcd, i, 0, lineText);
            }
-
-           updateDisplay = false;
        }
 
        // Refresh rate of 10hz

@@ -17,6 +17,7 @@ C_SRCS += \
 ../ccfg.c \
 ../display.c \
 ../empty.c \
+../food_funcs.c \
 ../gyro.c \
 ../menu.c \
 ../music.c \
@@ -38,6 +39,7 @@ C_DEPS += \
 ./ccfg.d \
 ./display.d \
 ./empty.d \
+./food_funcs.d \
 ./gyro.d \
 ./menu.d \
 ./music.d \
@@ -52,6 +54,7 @@ OBJS += \
 ./ccfg.obj \
 ./display.obj \
 ./empty.obj \
+./food_funcs.obj \
 ./gyro.obj \
 ./menu.obj \
 ./music.obj \
@@ -66,6 +69,7 @@ OBJS__QUOTED += \
 "ccfg.obj" \
 "display.obj" \
 "empty.obj" \
+"food_funcs.obj" \
 "gyro.obj" \
 "menu.obj" \
 "music.obj" \
@@ -77,6 +81,7 @@ C_DEPS__QUOTED += \
 "ccfg.d" \
 "display.d" \
 "empty.d" \
+"food_funcs.d" \
 "gyro.d" \
 "menu.d" \
 "music.d" \
@@ -92,6 +97,7 @@ C_SRCS__QUOTED += \
 "../ccfg.c" \
 "../display.c" \
 "../empty.c" \
+"../food_funcs.c" \
 "../gyro.c" \
 "../menu.c" \
 "../music.c" \
