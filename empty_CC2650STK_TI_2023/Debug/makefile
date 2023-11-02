@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := J:/css1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS
+CG_TOOL_ROOT := C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS
 
 GEN_OPTS__FLAG := --cmd_file="configPkg/compiler.opt" 
 GEN_CMDS__FLAG := -l"configPkg/linker.cmd" 
@@ -18,12 +18,13 @@ ORDERED_OBJS += \
 "./gyro.obj" \
 "./menu.obj" \
 "./music.obj" \
+"./task_runner.obj" \
 "./sensors/mpu9250.obj" \
 "./util/avgArray.obj" \
 "./util/textMenu.obj" \
 "../CC2650STK.cmd" \
 $(GEN_CMDS__FLAG) \
--l"J:/rtos/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc26xxware_2_24_03_17272/driverlib/bin/ccs/driverlib.lib" \
+-l"D:/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc26xxware_2_24_03_17272/driverlib/bin/ccs/driverlib.lib" \
 -llibc.a \
 
 -include ../makefile.init
@@ -155,22 +156,22 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 empty_CC2650STK_TI.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"J:/css1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=none -me --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"empty_CC2650STK_TI.map" --heap_size=0 --stack_size=256 -i"J:/css1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"J:/css1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC2650STK_TI_linkInfo.xml" --rom_model -o "empty_CC2650STK_TI.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=none -me --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"empty_CC2650STK_TI.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC2650STK_TI_linkInfo.xml" --rom_model -o "empty_CC2650STK_TI.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 empty_CC2650STK_TI.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: Arm Hex Utility'
-	"J:/css1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off --intel -o "empty_CC2650STK_TI.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off --intel -o "empty_CC2650STK_TI.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC2650STK.obj" "buzzer.obj" "ccfg.obj" "display.obj" "empty.obj" "gyro.obj" "menu.obj" "music.obj" "sensors\mpu9250.obj" "util\avgArray.obj" "util\textMenu.obj" 
-	-$(RM) "CC2650STK.d" "buzzer.d" "ccfg.d" "display.d" "empty.d" "gyro.d" "menu.d" "music.d" "sensors\mpu9250.d" "util\avgArray.d" "util\textMenu.d" 
+	-$(RM) "CC2650STK.obj" "buzzer.obj" "ccfg.obj" "display.obj" "empty.obj" "gyro.obj" "menu.obj" "music.obj" "task_runner.obj" "sensors\mpu9250.obj" "util\avgArray.obj" "util\textMenu.obj" 
+	-$(RM) "CC2650STK.d" "buzzer.d" "ccfg.d" "display.d" "empty.d" "gyro.d" "menu.d" "music.d" "task_runner.d" "sensors\mpu9250.d" "util\avgArray.d" "util\textMenu.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

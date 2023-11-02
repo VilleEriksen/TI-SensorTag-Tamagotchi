@@ -10,32 +10,21 @@
 #include "Board.h"
 #include "util/textMenu.h"
 #include "menu.h"
+#include "display.h"
 
-void display_menuUpdate() {
-    int i;
-    for (i = 0; i < currentMenu->size; i++) {
-        if (i == currentMenu->selectedI) System_printf(SELECTED_ITEM);
-        else System_printf(NORMAL_ITEM);
-
-        System_printf((currentMenu->menuItems + i)->itemText);
-        System_printf("\n");
-    }
-
-    System_printf("\n\n\n\n\n\n\n\n\n\n\n");
-    System_flush();
-}
+extern bool updateDisplay;
 
 void display_menuUp() {
     menu_moveBy(-1);
-    display_menuUpdate();
+    updateDisplay = true;
 }
 
 void display_menuDown() {
     menu_moveBy(1);
-    display_menuUpdate();
+    updateDisplay = true;
 }
 
 void display_menuActivate() {
     menu_activate(1);
-    display_menuUpdate();
+    updateDisplay = true;
 }

@@ -42,15 +42,15 @@
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/sysbios/knl/Task.h>
 
+
 /* TI-RTOS Header files */
 #include <ti/drivers/PIN.h>
 
 /* Board Header files */
 #include "Board.h"
-#include "gyro.h"
-#include "display.h"
 #include "menu.h"
 #include "util/textMenu.h"
+#include "task_runner.h"
 
 #define BUTTON_0_ID 0
 #define BUTTON_1_ID 4
@@ -89,13 +89,12 @@ int main(void)
 {
     /* Call board init functions */
     Board_initGeneral();
-    Board_initI2C();
-
-    System_printf("Gyro and music test\n");
-    System_flush();
 
     initMusic();
     menu_init();
+
+    initTasks();
+    //Board_initI2C();
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);
     if(!buttonHandle0) {
@@ -115,13 +114,6 @@ int main(void)
        System_abort("Error registering button 1 callback function");
     }
 
-    //startMusic(&HAPPY_THEME, false);
-
-    //initMPU920();
-
-    //initDisplay();
-
-    /* Start BIOS */
     BIOS_start();
 
     return (0);

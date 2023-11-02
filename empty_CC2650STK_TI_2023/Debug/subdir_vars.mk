@@ -19,7 +19,8 @@ C_SRCS += \
 ../empty.c \
 ../gyro.c \
 ../menu.c \
-../music.c 
+../music.c \
+../task_runner.c 
 
 GEN_CMDS += \
 ./configPkg/linker.cmd 
@@ -39,7 +40,8 @@ C_DEPS += \
 ./empty.d \
 ./gyro.d \
 ./menu.d \
-./music.d 
+./music.d \
+./task_runner.d 
 
 GEN_OPTS += \
 ./configPkg/compiler.opt 
@@ -52,7 +54,8 @@ OBJS += \
 ./empty.obj \
 ./gyro.obj \
 ./menu.obj \
-./music.obj 
+./music.obj \
+./task_runner.obj 
 
 GEN_MISC_DIRS__QUOTED += \
 "configPkg\" 
@@ -65,7 +68,8 @@ OBJS__QUOTED += \
 "empty.obj" \
 "gyro.obj" \
 "menu.obj" \
-"music.obj" 
+"music.obj" \
+"task_runner.obj" 
 
 C_DEPS__QUOTED += \
 "CC2650STK.d" \
@@ -75,7 +79,8 @@ C_DEPS__QUOTED += \
 "empty.d" \
 "gyro.d" \
 "menu.d" \
-"music.d" 
+"music.d" \
+"task_runner.d" 
 
 GEN_FILES__QUOTED += \
 "configPkg\linker.cmd" \
@@ -89,6 +94,7 @@ C_SRCS__QUOTED += \
 "../empty.c" \
 "../gyro.c" \
 "../menu.c" \
-"../music.c" 
+"../music.c" \
+"../task_runner.c" 
 
 

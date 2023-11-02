@@ -11,7 +11,6 @@
 #define SELECTED_ITEM "> "
 #define NORMAL_ITEM "  "
 
-void display_menuUpdate();
 void display_menuUp();
 void display_menuDown();
 void display_menuActivate();
