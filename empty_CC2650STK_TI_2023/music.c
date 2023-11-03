@@ -13,6 +13,10 @@
 #include "Board.h"
 #include "buzzer.h"
 #include "music.h"
+#include "empty.h"
+
+// global state variable
+extern enum state2 interruptState;
 
 // Task vars
 
@@ -44,6 +48,7 @@ void musixFxn(UArg arg0) {
         } else {
             buzzerClose();
             Clock_delete(&musicHandle);
+            interruptState = EMPTY;
             return;
         }
     }
@@ -64,6 +69,7 @@ void initMusic() {
 }
 
 void startMusic(struct song *songVar, bool loopMusicVar) {
+    interruptState = PLAY_MUSIC;
     songStruct = songVar;
     loopMusic = loopMusicVar;
     songI = 0;

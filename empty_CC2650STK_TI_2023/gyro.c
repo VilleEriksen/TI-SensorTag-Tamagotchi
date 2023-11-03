@@ -14,9 +14,12 @@
 #include "gyro.h"
 #include "util/avgArray.h"
 #include "sensors/mpu9250.h"
+#include "empty.h"
 
 #define STACKSIZE 2048
 Char taskStack[STACKSIZE];
+
+extern enum state1 programState;
 
 // MPU power pin global variables
 static PIN_Handle hMpuPin;
@@ -79,7 +82,7 @@ Void sensorFxn(UArg arg0, UArg arg1) {
 
     // Loop forever
     while (1) {
-
+        programState = GYRO_READ;
         // MPU ask data
         mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
 
@@ -96,7 +99,7 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         sprintf(printString2, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n\n", ax, ay, az, gx, gy, gz);
         System_printf(printString2);
         System_flush();
-
+        programState = GYRO_DATA_READY;
         // Sleep 100ms
         Task_sleep(100000 / Clock_tickPeriod);
     }

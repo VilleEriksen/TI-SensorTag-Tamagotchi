@@ -51,6 +51,7 @@
 #include "menu.h"
 #include "util/textMenu.h"
 #include "task_runner.h"
+#include "empty.h"
 
 #define BUTTON_0_ID 0
 #define BUTTON_1_ID 4
@@ -62,6 +63,11 @@ PIN_Config buttonConfig0[] = {
    Board_BUTTON0  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
    PIN_TERMINATE
 };
+
+//global state variables
+enum state1 programState = WAITING;
+enum state2 interruptState = EMPTY;
+
 
 static PIN_Handle buttonHandle1;
 static PIN_State buttonState1;
