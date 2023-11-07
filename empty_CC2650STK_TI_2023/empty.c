@@ -52,6 +52,8 @@
 #include "util/textMenu.h"
 #include "task_runner.h"
 #include "empty.h"
+#include "gyro.h"
+#include "gestureReader.h"
 
 #define BUTTON_0_ID 0
 #define BUTTON_1_ID 4
@@ -100,6 +102,8 @@ int main(void)
     menu_init();
 
     initTasks();
+    initMPU920();
+    initGestureReader();
     //Board_initI2C();
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);

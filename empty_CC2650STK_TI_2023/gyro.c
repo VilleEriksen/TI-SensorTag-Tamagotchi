@@ -16,6 +16,7 @@
 #include "sensors/mpu9250.h"
 #include "empty.h"
 
+
 #define STACKSIZE 2048
 Char taskStack[STACKSIZE];
 
@@ -44,10 +45,15 @@ struct avgArray* gxAvg;
 struct avgArray* gyAvg;
 struct avgArray* gzAvg;
 
+float ax, ay, az, gx, gy, gz;
+
+double time;
+
 Void sensorFxn(UArg arg0, UArg arg1) {
-    float ax, ay, az, gx, gy, gz;
-    char printString[50];
-    char printString2[50];
+    char printString[55];
+    char printString2[55];
+
+    float shake = 0;
 
     I2C_Handle i2cMPU; // Own i2c-interface for MPU9250 sensor
     I2C_Params i2cMPUParams;
@@ -83,6 +89,9 @@ Void sensorFxn(UArg arg0, UArg arg1) {
     // Loop forever
     while (1) {
         programState = GYRO_READ;
+
+        time = (double)Clock_getTicks() / 100000.0;
+
         // MPU ask data
         mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
 
@@ -93,12 +102,12 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         updateAvgArray(gyAvg, gy);
         updateAvgArray(gzAvg, gz);
 
-        sprintf(printString, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
-        System_printf(printString);
+        // sprintf(printString, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", time, axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
+        // System_printf(printString);
 
-        sprintf(printString2, "%.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n\n", ax, ay, az, gx, gy, gz);
-        System_printf(printString2);
-        System_flush();
+        // sprintf(printString2, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", time, ax, ay, az, gx, gy, gz);
+        // System_printf(printString2);
+        // System_flush();
         programState = GYRO_DATA_READY;
         // Sleep 100ms
         Task_sleep(100000 / Clock_tickPeriod);
@@ -129,52 +138,10 @@ void initMPU920() {
         System_abort("Task create failed!");
     }
 
-    axAvg = createAvgArray(10, 10);
-    ayAvg = createAvgArray(10, 10);
-    azAvg = createAvgArray(10, 10);
-    gxAvg = createAvgArray(10, 10);
-    gyAvg = createAvgArray(10, 10);
-    gzAvg = createAvgArray(10, 10);
-
-    // Initalize the average arrays.
-    /*
-    initAvgArray(&axAvg);
-    initAvgArray(&ayAvg);
-    initAvgArray(&azAvg);
-    initAvgArray(&gxAvg);
-    initAvgArray(&gyAvg);
-    initAvgArray(&gzAvg);
-    */
+    axAvg = createAvgArray(5, 0);
+    ayAvg = createAvgArray(5, 0);
+    azAvg = createAvgArray(5, 0);
+    gxAvg = createAvgArray(5, 0);
+    gyAvg = createAvgArray(5, 0);
+    gzAvg = createAvgArray(5, 0);
 }
-
-/*
-void initAvgArray(struct avgArray *avgArrayPar) {
-    int i;
-    for (i = 0; i < 10; i++) {
-        avgArrayPar->arr[i] = i;
-    }
-
-    avgArrayPar->avg = 0.0;
-    avgArrayPar->i = 0;
-}
-
-void updateAvgArray(struct avgArray *avgArrayPar, float val) {
-    avgArrayPar->arr[avgArrayPar->i] = val;
-    avgArrayPar->i = (avgArrayPar->i + 1) % 10;
-
-    avgArrayPar->avg = calcAvg(avgArrayPar->arr);
-}
-
-float calcAvg(float arrPar[]) {
-    float avg = 0.0;
-
-    int i;
-    for (i = 0; i < 10; i++) {
-        avg += arrPar[i];
-    }
-
-    avg /= 10.0;
-
-    return avg;
-}
-*/

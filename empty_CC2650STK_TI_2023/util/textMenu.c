@@ -22,6 +22,10 @@ void menu_activate() {
     }
 }
 
+void menu_reset() {
+    currentMenu = baseMenu;
+}
+
 void menu_init() {
     baseMenu = &MAIN_MENU;
     currentMenu = baseMenu;

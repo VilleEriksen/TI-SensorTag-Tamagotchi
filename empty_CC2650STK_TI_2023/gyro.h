@@ -1,14 +1,13 @@
-#define INIT_AVG_ARR_VALUE { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }
-
 /*
-struct avgArray {
-    float arr[10];
-    float avg;
-    int i;
-};
+ * gyro.h
+ *
+ *  Created on: 6 Nov 2023
+ *      Author: Ville
+ */
+
+#ifndef GYRO_H_
+#define GYRO_H_
 
 void initMPU920();
-void initAvgArray(struct avgArray *avgArrayPar);
-void updateAvgArray(struct avgArray *avgArrayPar, float val);
-float calcAvg(float arr[]);
-*/
+
+#endif /* GYRO_H_ */

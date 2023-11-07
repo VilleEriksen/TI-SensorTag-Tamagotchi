@@ -17,7 +17,7 @@
 #include "menu.h"
 #include "display.h"
 
-bool updateDisplay = false;
+bool updateDisplay = true;
 
 void displayTask(UArg arg0, UArg arg1) {
 
@@ -30,20 +30,30 @@ void displayTask(UArg arg0, UArg arg1) {
 
    if (!hDisplayLcd) System_abort("Cannot open display");
 
+   // This is this is the string of the line printed.
    char lineText[17];
 
    while(1) {
+       // Check if the display should be updated.
        if (updateDisplay) {
            Display_clear(hDisplayLcd);
 
            int i;
+
+           // Iterate though the menu item.
            for (i = 0; i < currentMenu->size; i++) {
+               // Format the menu line string.
                if (i == currentMenu->selectedI) strcpy(lineText, SELECTED_ITEM);
                else strcpy(lineText, NORMAL_ITEM);
 
                strcpy(lineText + 2, (currentMenu->menuItems + i)->itemText);
+
+               // Finally print the menu line.
                Display_print0(hDisplayLcd, i, 0, lineText);
            }
+
+           // After we have updated, set the update flag to false.
+           updateDisplay = false;
        }
 
        // Refresh rate of 10hz
