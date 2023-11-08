@@ -49,8 +49,8 @@
 /* Board Header files */
 #include "Board.h"
 #include "menu.h"
+#include "display.h"
 #include "util/textMenu.h"
-#include "task_runner.h"
 #include "empty.h"
 #include "gyro.h"
 #include "gestureReader.h"
@@ -68,8 +68,6 @@ PIN_Config buttonConfig0[] = {
 
 //global state variables
 enum state1 programState = WAITING;
-enum state2 interruptState = EMPTY;
-
 
 static PIN_Handle buttonHandle1;
 static PIN_State buttonState1;
@@ -101,7 +99,7 @@ int main(void)
     initMusic();
     menu_init();
 
-    initTasks();
+    initDisplay();
     initMPU920();
     initGestureReader();
     //Board_initI2C();

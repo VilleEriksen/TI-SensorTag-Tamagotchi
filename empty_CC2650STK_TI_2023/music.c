@@ -15,9 +15,6 @@
 #include "music.h"
 #include "empty.h"
 
-// global state variable
-extern enum state2 interruptState;
-
 // Task vars
 
 static Clock_Handle musicHandle;
@@ -30,11 +27,9 @@ PIN_Config cBuzzer[] = {
     PIN_TERMINATE
 };
 
-// Music vars
-
-//static int a[] = {1319, 523, 1319, 523, 1319, 523, 1397, 0, 1175, 392, 1175, 392, 1175, 392, 1319, 0, 1046, 349, 1046, 349, 1175, 392, 1046, 523, 784};
-
 struct song *songStruct;
+
+bool musicPlaying = false;
 
 uint16_t songI;
 bool loopMusic;
@@ -48,7 +43,7 @@ void musixFxn(UArg arg0) {
         } else {
             buzzerClose();
             Clock_delete(&musicHandle);
-            interruptState = EMPTY;
+            musicPlaying = false;
             return;
         }
     }
@@ -69,7 +64,8 @@ void initMusic() {
 }
 
 void startMusic(struct song *songVar, bool loopMusicVar) {
-    interruptState = PLAY_MUSIC;
+    if (musicPlaying) return;
+
     songStruct = songVar;
     loopMusic = loopMusicVar;
     songI = 0;
@@ -81,6 +77,8 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
     if (musicHandle == NULL) {
         System_abort("Music create failed!");
     }
+
+    musicPlaying = true;
 }
 
 void playHappyTheme() {

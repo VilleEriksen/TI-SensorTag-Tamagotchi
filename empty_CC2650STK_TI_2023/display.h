@@ -20,5 +20,6 @@ char displayStack[DISPLAY_STACK_SIZE];
 Display_Handle displayHandle;
 
 void displayTask(UArg arg0, UArg arg1);
+void initDisplay();
 
 #endif /* DISPLAY_H_ */

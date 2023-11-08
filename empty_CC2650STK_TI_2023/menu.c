@@ -12,19 +12,26 @@
 #include "menu.h"
 #include "display.h"
 
+extern bool displayUpdating;
 extern bool updateDisplay;
 
 void display_menuUp() {
-    menu_moveBy(-1);
-    updateDisplay = true;
+    if (!displayUpdating) {
+        menu_moveBy(-1);
+        updateDisplay = true;
+    }
 }
 
 void display_menuDown() {
-    menu_moveBy(1);
-    updateDisplay = true;
+    if (!displayUpdating) {
+        menu_moveBy(1);
+        updateDisplay = true;
+    }
 }
 
 void display_menuActivate() {
-    menu_activate(1);
-    updateDisplay = true;
+    if (!displayUpdating) {
+        menu_activate(1);
+        updateDisplay = true;
+    }
 }

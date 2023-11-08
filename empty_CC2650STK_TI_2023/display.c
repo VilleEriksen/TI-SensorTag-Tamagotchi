@@ -17,6 +17,8 @@
 #include "menu.h"
 #include "display.h"
 
+bool displayUpdating = false;
+
 bool updateDisplay = true;
 
 void displayTask(UArg arg0, UArg arg1) {
@@ -36,6 +38,8 @@ void displayTask(UArg arg0, UArg arg1) {
    while(1) {
        // Check if the display should be updated.
        if (updateDisplay) {
+           displayUpdating = true;
+
            Display_clear(hDisplayLcd);
 
            int i;
@@ -54,9 +58,26 @@ void displayTask(UArg arg0, UArg arg1) {
 
            // After we have updated, set the update flag to false.
            updateDisplay = false;
+
+           displayUpdating = false;
        }
 
        // Refresh rate of 10hz
        Task_sleep(100000/Clock_tickPeriod);
    }
+}
+
+void initDisplay() {
+    Task_Params displayTaskParams;
+    Task_Handle displayTaskHandle;
+
+    Task_Params_init(&displayTaskParams);
+    displayTaskParams.stackSize = DISPLAY_STACK_SIZE;
+    displayTaskParams.stack = &displayStack;
+    displayTaskParams.priority = 2;
+
+    displayTaskHandle = Task_create((Task_FuncPtr)displayTask, &displayTaskParams, NULL);
+    if (displayTaskHandle == NULL) {
+        System_abort("Display task create failed");
+    }
 }
