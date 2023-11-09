@@ -29,7 +29,7 @@ extern float ax, ay, az, gx, gy, gz;
 
 struct gestureArray* gestureAvg;
 
-#define STACKSIZE 1024
+#define STACKSIZE 16
 Char taskStack[STACKSIZE];
 
 enum gestures currentGesture = NONE;
@@ -61,25 +61,7 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
                 currentGesture = NONE;
             }
 
-            switch (gestureAvg->avg) {
-                case NONE:
-                    System_printf("None");
-                    break;
-                case MOVE_UP:
-                    System_printf("Moving up");
-                    break;
-                case SHAKE:
-                    System_printf("Shaking");
-                    break;
-                case DRINK:
-                    System_printf("Drinking");
-                    break;
-            }
-
-            System_printf("\n");
-            System_flush();
-
-            programState = WAITING;
+            programState = GESTURE_READY;
         }
 
         // Sleep 250ms

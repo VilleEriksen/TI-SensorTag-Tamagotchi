@@ -54,9 +54,14 @@
 #include "empty.h"
 #include "gyro.h"
 #include "gestureReader.h"
+#include "gestureActivator.h"
+#include "checkBeep.h"
+#include "communication.h"
 
 #define BUTTON_0_ID 0
 #define BUTTON_1_ID 4
+
+int coins = 50;
 
 static PIN_Handle buttonHandle0;
 static PIN_State buttonState0;
@@ -101,7 +106,10 @@ int main(void)
 
     initDisplay();
     initMPU920();
+    initCommunication();
     initGestureReader();
+    initGestureActivator();
+    //initBeep();
     //Board_initI2C();
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);

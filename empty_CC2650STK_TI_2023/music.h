@@ -26,8 +26,22 @@ static uint16_t ANGRY_THEME_NOTES[] = {
 
 static struct song ANGRY_THEME = { &ANGRY_THEME_NOTES[0], 64, 175000 };
 
+static uint16_t WARNING_BEEP_NOTES[] = {
+    1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109, 1047, 1109,
+};
+
+static struct song WARNING_BEEP = { &WARNING_BEEP_NOTES[0], 112, 12500 };
+
 void musixFxn(UArg arg0);
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
+void toggleMusic();
 void playHappyTheme();
 void playAngryTheme();
+void playWaningBeep();

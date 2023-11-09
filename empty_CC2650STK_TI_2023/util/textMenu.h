@@ -35,12 +35,13 @@ struct menu {
 // Music menu
 
 static struct menuItem MUSIC_MENU_ITEMS[] = {
-    { .itemText = "Happy theme", .hasFunc = true, .nextFunc = playHappyTheme },
-    { .itemText = "Angry theme", .hasFunc = true, .nextFunc = playAngryTheme },
-    { .itemText = "Back",        .hasFunc = true, .nextFunc = menu_reset },
+    { .itemText = "Happy theme",  .hasFunc = true, .nextFunc = playHappyTheme },
+    { .itemText = "Angry theme",  .hasFunc = true, .nextFunc = playAngryTheme },
+    { .itemText = "Warning beep", .hasFunc = true, .nextFunc = playWaningBeep },
+    { .itemText = "Back",         .hasFunc = true, .nextFunc = menu_reset },
 };
 
-static struct menu MUSIC_MENU = { &MUSIC_MENU_ITEMS[0], &MUSIC_MENU_ITEMS[0], 0, 3 };
+static struct menu MUSIC_MENU = { &MUSIC_MENU_ITEMS[0], &MUSIC_MENU_ITEMS[0], 0, 4 };
 
 // Food menu
 
@@ -59,10 +60,10 @@ static struct menu FOOD_MENU = { &FOOD_MENU_ITEMS[0], &FOOD_MENU_ITEMS[0], 0, 7 
 // Options menu
 
 static struct menuItem OPTIONS_MENU_ITEMS[] = {
-    { .itemText = "Music off", .hasFunc = true },
-    { .itemText = "Death off", .hasFunc = true },
-    { .itemText = "Start new", .hasFunc = true },
-    { .itemText = "Back",      .hasFunc = true, .nextFunc = menu_reset },
+    { .itemText = "Toggle audio", .hasFunc = true, .nextFunc = toggleMusic },
+    { .itemText = "Death off",    .hasFunc = true },
+    { .itemText = "Start new",    .hasFunc = true },
+    { .itemText = "Back",         .hasFunc = true, .nextFunc = menu_reset },
 };
 
 static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[0], 0, 4 };

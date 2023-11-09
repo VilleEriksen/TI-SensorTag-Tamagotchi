@@ -14,11 +14,6 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
-#define DISPLAY_STACK_SIZE 256
-char displayStack[DISPLAY_STACK_SIZE];
-
-Display_Handle displayHandle;
-
 void displayTask(UArg arg0, UArg arg1);
 void initDisplay();
 

@@ -29,6 +29,7 @@ PIN_Config cBuzzer[] = {
 
 struct song *songStruct;
 
+bool musicEnabled = true;
 bool musicPlaying = false;
 
 uint16_t songI;
@@ -64,7 +65,7 @@ void initMusic() {
 }
 
 void startMusic(struct song *songVar, bool loopMusicVar) {
-    if (musicPlaying) return;
+    if (musicPlaying || !musicEnabled) return;
 
     songStruct = songVar;
     loopMusic = loopMusicVar;
@@ -81,10 +82,18 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
     musicPlaying = true;
 }
 
+void toggleMusic() {
+    musicEnabled =! musicEnabled;
+}
+
 void playHappyTheme() {
     startMusic(&HAPPY_THEME, false);
 }
 
 void playAngryTheme() {
     startMusic(&ANGRY_THEME, false);
+}
+
+void playWaningBeep() {
+    startMusic(&WARNING_BEEP, false);
 }

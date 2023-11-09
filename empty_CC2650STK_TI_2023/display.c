@@ -17,6 +17,11 @@
 #include "menu.h"
 #include "display.h"
 
+#define DISPLAY_STACK_SIZE 256
+char displayStack[DISPLAY_STACK_SIZE];
+
+Display_Handle displayHandle;
+
 bool displayUpdating = false;
 
 bool updateDisplay = true;

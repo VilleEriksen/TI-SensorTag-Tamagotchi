@@ -5,28 +5,90 @@
  *      Author: Ville
  */
 
+#include <xdc/runtime/System.h>
+#include "communication.h"
 #include "food_funcs.h"
 
+#define SALMIAKKI 3
+#define RUISLEIPA 1
+#define KORVAPUUSTI 2
+#define LOHIKEITTO 5
+#define KARJALANPAISTI 6
+#define ROSSYPOTTU 4
+
+#define SALMIAKKI_HAPPINESS 6
+#define RUISLEIPA_HAPPINESS 2
+#define KORVAPUUSTI_HAPPINESS 9
+#define LOHIKEITTO_HAPPINESS 5
+#define KARJALANPAISTI_HAPPINESS 7
+#define ROSSYPOTTU_HAPPINESS -2
+
+#define SALMIAKKI_COST 2
+#define RUISLEIPA_COST 1
+#define KORVAPUUSTI_COST 1
+#define LOHIKEITTO_COST 4
+#define KARJALANPAISTI_COST 3
+#define ROSSYPOTTU_COST 1
+
+extern coins;
+
 void feedSalmiakki() {
-    // TODO: code this
+    if(coins >= SALMIAKKI_COST) {
+        giveFood(SALMIAKKI);
+        adjustHappiness(SALMIAKKI_HAPPINESS);
+        updateCoins(SALMIAKKI_COST);
+    } else {
+        System_printf("No coin");
+    }
 }
 
 void feedRuisleipa() {
-    // TODO: code this
+    if(coins >= RUISLEIPA_COST) {
+        giveFood(RUISLEIPA);
+        adjustHappiness(RUISLEIPA_HAPPINESS);
+        updateCoins(RUISLEIPA_COST);
+    } else {
+        System_printf("No moni");
+    }
 }
 
 void feedKorvapuusti() {
-    // TODO: code this
+    if(coins >= KORVAPUUSTI_COST) {
+        giveFood(KORVAPUUSTI);
+        adjustHappiness(KORVAPUUSTI_HAPPINESS);
+        updateCoins(KORVAPUUSTI_COST);
+    } else {
+        System_printf("No coin");
+    }
 }
 
 void feedLohikeitto() {
-    // TODO: code this
+    if(coins >= LOHIKEITTO_COST) {
+        giveFood(LOHIKEITTO);
+        adjustHappiness(LOHIKEITTO_HAPPINESS);
+        updateCoins(LOHIKEITTO_COST);
+    } else {
+        System_printf("No moni");
+    }
 }
 
 void feedKarjalanpaisti() {
-    // TODO: code this
+    if(coins >= KARJALANPAISTI_COST) {
+        giveFood(KARJALANPAISTI);
+        adjustHappiness(KARJALANPAISTI_HAPPINESS);
+        updateCoins(KARJALANPAISTI_COST);
+    } else {
+        System_printf("No moni");
+    }
+
 }
 
 void feedRossypottu() {
-    // TODO: code this
+    if(coins >= ROSSYPOTTU_COST) {
+        giveFood(ROSSYPOTTU);
+        adjustHappiness(ROSSYPOTTU_HAPPINESS);
+        updateCoins(ROSSYPOTTU_COST);
+    } else {
+        System_printf("No moni");
+    }
 }

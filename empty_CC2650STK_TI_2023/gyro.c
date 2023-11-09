@@ -17,7 +17,7 @@
 #include "empty.h"
 
 
-#define STACKSIZE 2048
+#define STACKSIZE 1500
 Char taskStack[STACKSIZE];
 
 extern enum state1 programState;
@@ -50,10 +50,10 @@ float ax, ay, az, gx, gy, gz;
 double time;
 
 Void sensorFxn(UArg arg0, UArg arg1) {
-    char printString[55];
-    char printString2[55];
+    //char printString[55];
+    //char printString2[55];
 
-    float shake = 0;
+    //float shake = 0;
 
     I2C_Handle i2cMPU; // Own i2c-interface for MPU9250 sensor
     I2C_Params i2cMPUParams;
