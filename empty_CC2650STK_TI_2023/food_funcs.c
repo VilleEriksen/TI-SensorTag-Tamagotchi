@@ -30,7 +30,7 @@
 #define KARJALANPAISTI_COST 3
 #define ROSSYPOTTU_COST 1
 
-extern coins;
+extern int coins;
 
 void feedSalmiakki() {
     if(coins >= SALMIAKKI_COST) {
@@ -38,7 +38,7 @@ void feedSalmiakki() {
         adjustHappiness(SALMIAKKI_HAPPINESS);
         updateCoins(SALMIAKKI_COST);
     } else {
-        System_printf("No coin");
+        System_printf("No coin\n");
     }
 }
 
@@ -48,7 +48,7 @@ void feedRuisleipa() {
         adjustHappiness(RUISLEIPA_HAPPINESS);
         updateCoins(RUISLEIPA_COST);
     } else {
-        System_printf("No moni");
+        System_printf("No moni\n");
     }
 }
 
@@ -58,7 +58,7 @@ void feedKorvapuusti() {
         adjustHappiness(KORVAPUUSTI_HAPPINESS);
         updateCoins(KORVAPUUSTI_COST);
     } else {
-        System_printf("No coin");
+        System_printf("No coin\n");
     }
 }
 
@@ -68,7 +68,7 @@ void feedLohikeitto() {
         adjustHappiness(LOHIKEITTO_HAPPINESS);
         updateCoins(LOHIKEITTO_COST);
     } else {
-        System_printf("No moni");
+        System_printf("No moni\n");
     }
 }
 
@@ -78,7 +78,7 @@ void feedKarjalanpaisti() {
         adjustHappiness(KARJALANPAISTI_HAPPINESS);
         updateCoins(KARJALANPAISTI_COST);
     } else {
-        System_printf("No moni");
+        System_printf("No moni\n");
     }
 
 }
@@ -89,6 +89,6 @@ void feedRossypottu() {
         adjustHappiness(ROSSYPOTTU_HAPPINESS);
         updateCoins(ROSSYPOTTU_COST);
     } else {
-        System_printf("No moni");
+        System_printf("No moni\n");
     }
 }

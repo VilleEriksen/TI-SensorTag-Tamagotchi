@@ -81,5 +81,5 @@ void initGestureReader() {
         System_abort("Task create failed!");
     }
 
-    gestureAvg = createGestureArray(3, NONE);
+    gestureAvg = createGestureArray(2, NONE);
 }

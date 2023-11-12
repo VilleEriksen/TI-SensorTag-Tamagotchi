@@ -14,18 +14,19 @@
 
 extern bool displayUpdating;
 extern bool updateDisplay;
+extern bool partialUpdateDisplay;
 
 void display_menuUp() {
     if (!displayUpdating) {
         menu_moveBy(-1);
-        updateDisplay = true;
+        partialUpdateDisplay = true;
     }
 }
 
 void display_menuDown() {
     if (!displayUpdating) {
         menu_moveBy(1);
-        updateDisplay = true;
+        partialUpdateDisplay = true;
     }
 }
 

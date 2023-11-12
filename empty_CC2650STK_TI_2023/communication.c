@@ -5,13 +5,12 @@
 #include <wireless/comm_lib.h>
 
 #include "Board.h"
-#include "empty.h"
 #include "communication.h"
 #include <stdio.h>
 
 extern int coins;
 
-#define COMMSTACKSIZE 4096
+#define COMMSTACKSIZE 2048
 char commTaskStack[COMMSTACKSIZE];
 char payload[16];
 
@@ -36,9 +35,9 @@ void exercise(uint8_t exerciseAmount) {
    StartReceive6LoWPAN();
 }
 
-void updateCoins(uint8_t coinsAmount) {
+void updateCoins(int8_t coinsAmount) {
     coins -= coinsAmount;
-    sprintf(payload, "MSG2:Coins:%d", coinsAmount);
+    sprintf(payload, "MSG2:Coins:%d", coins);
     System_printf(payload);
     System_printf("\n");
     System_flush();
@@ -84,7 +83,6 @@ void commTaskFxn(UArg arg0, UArg arg1) {
                System_printf(payload);
                System_flush();
            }
-
         }
    }
 }
@@ -100,6 +98,7 @@ void initCommunication() {
     commTaskParams.stack = &commTaskStack;
     commTaskParams.priority = 1;
     commTaskHandle = Task_create(commTaskFxn, &commTaskParams, NULL);
+
     if (commTaskHandle == NULL) {
         System_abort("Task create failed!");
     }

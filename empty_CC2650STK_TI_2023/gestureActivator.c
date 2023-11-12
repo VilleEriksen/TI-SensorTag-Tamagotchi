@@ -13,8 +13,10 @@
 #include <stdio.h>
 #include <util/gestureArray.h>
 #include "empty.h"
+#include "music.h"
+#include "communication.h"
 
-#define STACKSIZE2 512
+#define STACKSIZE2 1024
 Char taskStack2[STACKSIZE2];
 
 extern enum state1 programState;
@@ -22,36 +24,34 @@ extern struct gestureArray* gestureAvg;
 
 void activateGestureFxn(UArg arg0, UArg arg1) {
     while(1) {
-        //if (programState == GESTURE_READY) {
-        //    programState = ACTIVATING_GESTURE;
+        switch (gestureAvg->avg) {;
+            case NONE:
+                // TODO: add func
+                //System_printf("Nothing");
+                break;
+            case MOVE_UP:
+                // TODO: add func
+                playMovingUpSting();
+                adjustHappiness(1);
+                //System_printf("Moving up");
+                break;
+            case SHAKE:
+                // TODO: add func
+                playShakingSting();
+                exercise(1);
+                //System_printf("Shaking");
+                break;
+            case DRINK:
+                // TODO: add func
+                //System_printf("Drinking");
+                break;
+        }
 
-            switch (gestureAvg->avg) {;
-                case NONE:
-                    // TODO: add func
-                    System_printf("Nothing");
-                    break;
-                case MOVE_UP:
-                    // TODO: add func
-                    System_printf("Moving up");
-                    break;
-                case SHAKE:
-                    // TODO: add func
-                    System_printf("Shaking");
-                    break;
-                case DRINK:
-                    // TODO: add func
-                    System_printf("Drinking");
-                    break;
-            }
+        //System_printf("\n");
+        //System_flush();
 
-            System_printf("\n");
-            System_flush();
-
-        //    programState = WAITING;
-        //}
-
-        // Sleep 1000ms
-        Task_sleep(1000000 / Clock_tickPeriod);
+        // Sleep 500ms
+        Task_sleep(500000 / Clock_tickPeriod);
     }
 }
 

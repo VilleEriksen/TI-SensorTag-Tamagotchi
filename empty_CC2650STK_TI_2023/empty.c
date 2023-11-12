@@ -55,7 +55,7 @@
 #include "gyro.h"
 #include "gestureReader.h"
 #include "gestureActivator.h"
-#include "checkBeep.h"
+#include "game.h"
 #include "communication.h"
 
 #define BUTTON_0_ID 0
@@ -101,12 +101,15 @@ int main(void)
     /* Call board init functions */
     Board_initGeneral();
 
+    //initCommunication();
+
+    initGame();
+
     initMusic();
     menu_init();
 
     initDisplay();
     initMPU920();
-    initCommunication();
     initGestureReader();
     initGestureActivator();
     //initBeep();

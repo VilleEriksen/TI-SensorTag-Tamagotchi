@@ -14,6 +14,8 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+enum displayMode { MENU, MESSANGE, GAME };
+
 void displayTask(UArg arg0, UArg arg1);
 void initDisplay();
 

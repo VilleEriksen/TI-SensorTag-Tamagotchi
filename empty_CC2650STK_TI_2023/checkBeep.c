@@ -17,17 +17,16 @@
 
 
 extern bool beepMessage;
-#define STACKSIZE 32
-Char taskStack[STACKSIZE];
+#define BEEP_STACKSIZE 32
+Char beepTaskStack[BEEP_STACKSIZE];
 
 
 void beepFxn(UArg arg0, UArg arg1) {
    while(1) {
        if(beepMessage) {
            playWaningBeep();
+           beepMessage = false;
        }
-
-       beepMessage = false;
 
        Task_sleep(1000000/Clock_tickPeriod);
    }
@@ -38,8 +37,8 @@ void initBeep() {
      Task_Handle task;
      Task_Params taskParams;
      Task_Params_init(&taskParams);
-     taskParams.stackSize = STACKSIZE;
-     taskParams.stack = &taskStack;
+     taskParams.stackSize = BEEP_STACKSIZE;
+     taskParams.stack = &beepTaskStack;
      task = Task_create((Task_FuncPtr)beepFxn, &taskParams, NULL);
      if (task == NULL) {
          System_abort("Task create failed!");

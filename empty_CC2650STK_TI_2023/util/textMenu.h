@@ -10,6 +10,8 @@
 
 #include "music.h"
 #include "food_funcs.h"
+#include "game.h"
+#include "menu.h"
 
 void menu_moveBy(int steps);
 void menu_activate();
@@ -33,15 +35,16 @@ struct menu {
 };
 
 // Music menu
-
 static struct menuItem MUSIC_MENU_ITEMS[] = {
-    { .itemText = "Happy theme",  .hasFunc = true, .nextFunc = playHappyTheme },
-    { .itemText = "Angry theme",  .hasFunc = true, .nextFunc = playAngryTheme },
-    { .itemText = "Warning beep", .hasFunc = true, .nextFunc = playWaningBeep },
-    { .itemText = "Back",         .hasFunc = true, .nextFunc = menu_reset },
+    { .itemText = "Happy theme",    .hasFunc = true, .nextFunc = playHappyTheme },
+    { .itemText = "Angry theme",    .hasFunc = true, .nextFunc = playAngryTheme },
+    { .itemText = "Warning beep",   .hasFunc = true, .nextFunc = playWaningBeep },
+    { .itemText = "Moving up beep", .hasFunc = true, .nextFunc = playMovingUpSting },
+    { .itemText = "Shaking beep",   .hasFunc = true, .nextFunc = playShakingSting },
+    { .itemText = "Back",           .hasFunc = true, .nextFunc = menu_reset },
 };
 
-static struct menu MUSIC_MENU = { &MUSIC_MENU_ITEMS[0], &MUSIC_MENU_ITEMS[0], 0, 4 };
+static struct menu MUSIC_MENU = { &MUSIC_MENU_ITEMS[0], &MUSIC_MENU_ITEMS[0], 0, 6 };
 
 // Food menu
 
@@ -73,10 +76,11 @@ static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[
 static struct menuItem MAIN_MENU_ITEMS[] = {
     { .itemText = "Play music", .hasFunc = false, .nextMenu = &MUSIC_MENU },
     { .itemText = "Give food",  .hasFunc = false, .nextMenu = &FOOD_MENU },
+    { .itemText = "Play game",  .hasFunc = true,  .nextFunc = startGame },
     { .itemText = "Options",    .hasFunc = false, .nextMenu = &OPTIONS_MENU },
 };
 
-static struct menu MAIN_MENU = { &MAIN_MENU_ITEMS[0], &MAIN_MENU_ITEMS[0], 0, 3 };
+static struct menu MAIN_MENU = { &MAIN_MENU_ITEMS[0], &MAIN_MENU_ITEMS[0], 0, 4 };
 
 struct menu* baseMenu;
 struct menu* currentMenu;

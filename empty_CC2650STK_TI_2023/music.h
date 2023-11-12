@@ -38,6 +38,18 @@ static uint16_t WARNING_BEEP_NOTES[] = {
 
 static struct song WARNING_BEEP = { &WARNING_BEEP_NOTES[0], 112, 12500 };
 
+static uint16_t MOVING_UP_STING_NOTES[] = {
+    1047, 1397, 1548, 1548, 1548, 1548
+};
+
+static struct song MOVING_UP_STING = { &MOVING_UP_STING_NOTES[0], 6, 125000 };
+
+static uint16_t SHAKING_STING_NOTES[] = {
+    1047, 1245, 1397, 1245, 1047, 1245, 1480, 1047
+};
+
+static struct song SHAKING_STING = { &SHAKING_STING_NOTES[0], 8, 100000 };
+
 void musixFxn(UArg arg0);
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
@@ -45,3 +57,5 @@ void toggleMusic();
 void playHappyTheme();
 void playAngryTheme();
 void playWaningBeep();
+void playMovingUpSting();
+void playShakingSting();

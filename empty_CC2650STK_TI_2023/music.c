@@ -97,3 +97,11 @@ void playAngryTheme() {
 void playWaningBeep() {
     startMusic(&WARNING_BEEP, false);
 }
+
+void playMovingUpSting() {
+    startMusic(&MOVING_UP_STING, false);
+}
+
+void playShakingSting() {
+    startMusic(&SHAKING_STING, false);
+}

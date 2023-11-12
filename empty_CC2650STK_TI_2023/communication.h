@@ -18,7 +18,7 @@ void giveFood(uint8_t foodAmount);
 void pet(uint8_t petAmount);
 void exercise(uint8_t exerciseAmount);
 void adjustHappiness(int8_t happinessAmount);
-void updateCoins(uint8_t coinsAmount);
+void updateCoins(int8_t coinsAmount);
 
 
 
