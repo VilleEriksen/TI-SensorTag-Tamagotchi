@@ -84,15 +84,15 @@ void displayTask(UArg arg0, UArg arg1) {
                case GAME:
                    Display_clear(hDisplayLcd);
                    // Pipes
-                   GrLineDrawV(pContext, gameParams.pipes1XPos, 0, gameParams.pipes1YPos - 17);
-                   GrLineDrawV(pContext, gameParams.pipes1XPos, 96, gameParams.pipes1YPos + 17);
+                   GrLineDrawV(pContext, gameParams.pipes1XPos, 0, gameParams.pipes1YPos - gameParams.pipesDistance);
+                   GrLineDrawV(pContext, gameParams.pipes1XPos, SCREEN_FULL_DIM, gameParams.pipes1YPos + gameParams.pipesDistance);
 
-                   GrLineDrawV(pContext, gameParams.pipes2XPos, 0, gameParams.pipes2YPos - 17);
-                   GrLineDrawV(pContext, gameParams.pipes2XPos, 96, gameParams.pipes2YPos + 17);
+                   GrLineDrawV(pContext, gameParams.pipes2XPos, 0, gameParams.pipes2YPos - gameParams.pipesDistance);
+                   GrLineDrawV(pContext, gameParams.pipes2XPos, SCREEN_FULL_DIM, gameParams.pipes2YPos + gameParams.pipesDistance);
 
 
                    // Player
-                   GrCircleDraw(pContext, 15, gameParams.playerYpos, 5);
+                   GrCircleFill(pContext, PLAYER_X_POS, gameParams.playerYpos, 3);
                    //Display_print0(hDisplayLcd, 0, 0, scoreText);
                    GrFlush(pContext);
 

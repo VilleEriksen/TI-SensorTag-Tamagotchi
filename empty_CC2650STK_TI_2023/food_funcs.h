@@ -18,7 +18,7 @@ void feedKorvapuusti();
 
 void feedLohikeitto();
 
-void feedKarjalanpaisti();
+void feedLanttukukko();
 
 void feedRossypottu();
 

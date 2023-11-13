@@ -49,12 +49,12 @@ static struct menu MUSIC_MENU = { &MUSIC_MENU_ITEMS[0], &MUSIC_MENU_ITEMS[0], 0,
 // Food menu
 
 static struct menuItem FOOD_MENU_ITEMS[] = {
-    { .itemText = "Salmiakki",      .hasFunc = true, .nextFunc = feedSalmiakki },
-    { .itemText = "Ruisleipa",      .hasFunc = true, .nextFunc = feedRuisleipa },
-    { .itemText = "Korvapuusti",    .hasFunc = true, .nextFunc = feedKorvapuusti },
-    { .itemText = "Lohikeitto",     .hasFunc = true, .nextFunc = feedLohikeitto },
-    { .itemText = "Karjalanpaisti", .hasFunc = true, .nextFunc = feedKarjalanpaisti },
-    { .itemText = "Rossypottu",     .hasFunc = true, .nextFunc = feedRossypottu },
+    { .itemText = "Salmiakki   2e", .hasFunc = true, .nextFunc = feedSalmiakki },
+    { .itemText = "Ruisleipa   1e", .hasFunc = true, .nextFunc = feedRuisleipa },
+    { .itemText = "Korvapuusti 1e", .hasFunc = true, .nextFunc = feedKorvapuusti },
+    { .itemText = "Lohikeitto  4e", .hasFunc = true, .nextFunc = feedLohikeitto },
+    { .itemText = "Lanttukukko 3e", .hasFunc = true,     .nextFunc = feedLanttukukko },
+    { .itemText = "Rossypottu  1e", .hasFunc = true, .nextFunc = feedRossypottu },
     { .itemText = "Back",           .hasFunc = true, .nextFunc = menu_reset },
 };
 

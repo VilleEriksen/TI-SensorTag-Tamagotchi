@@ -15,6 +15,7 @@
 
 #include "Board.h"
 #include "gyro.h"
+#include "music.h"
 #include "display.h"
 #include "communication.h"
 #include "game.h"
@@ -36,6 +37,7 @@ extern enum displayMode currentDisplayMode;
 extern bool updateDisplay;
 extern char msgText[17];
 extern float ay;
+extern int gyroUpdateSpeed;
 
 #define GAME_STACKSIZE 1024
 Char gameStack[GAME_STACKSIZE];
@@ -45,11 +47,16 @@ bool startCount = false;
 bool gameOver = false;
 struct publicGameParams gameParams;
 
+float yBias;
+
 float playerYSpeed = 0.0;
 float playerY = 0.0;
 
 int i1 = 0;
 int i2 = 1;
+
+float gameSpeed;
+char frame = 0;
 
 void gameFxn(UArg arg0, UArg arg1) {
 
@@ -71,12 +78,17 @@ void gameFxn(UArg arg0, UArg arg1) {
                 updateDisplay = true;
                 Task_sleep(1000000 / Clock_tickPeriod);
 
+                gyroUpdateSpeed = 33333;
+                playHappyTheme();
                 currentDisplayMode = GAME;
             }
 
             if (gameOver) {
                 gameOver = false;
                 gameActive = false;
+
+                gyroUpdateSpeed = 100000;
+                stopMusic();
 
                 updateCoins(gameParams.score * -1);
 
@@ -96,18 +108,23 @@ void gameFxn(UArg arg0, UArg arg1) {
                 updateDisplay = true;
             }
 
+            frame++;
+            gameSpeed *= GAME_SPEED_MULT;
+
+            if (frame == 0 && gameParams.pipesDistance > PIPES_DIST_END) gameParams.pipesDistance--;
+
             // Update player pos
-            playerYSpeed += ay / 1.5;
-            playerYSpeed *= 0.97;
+            playerYSpeed += (ay - yBias) * GYRO_MULT;
+            playerYSpeed *= PLAYER_DRAG;
             playerY += playerYSpeed;
-            if (playerY <= 5 || playerY >= 92) playerYSpeed = 0;
+            if (playerY <= PLAYER_MIN_BOUND || playerY >= PLAYER_MAX_BOUND) playerYSpeed *= -1;
 
             gameParams.playerYpos = playerY;
 
             // Update pipes pos
             gameParams.pipes1XPos--;
             if (gameParams.pipes1XPos <= 0) {
-                gameParams.pipes1XPos = 96;
+                gameParams.pipes1XPos = SCREEN_FULL_DIM;
                 gameParams.pipes1YPos = randArr[i1];
 
                 i1 = (i1 + 2) % 100;
@@ -115,24 +132,26 @@ void gameFxn(UArg arg0, UArg arg1) {
 
             gameParams.pipes2XPos--;
             if (gameParams.pipes2XPos <= 0) {
-                gameParams.pipes2XPos = 96;
+                gameParams.pipes2XPos = SCREEN_FULL_DIM;
                 gameParams.pipes2YPos = randArr[i2];
 
                 i2 = (i2 + 2) % 100;
             }
 
-            if (gameParams.pipes1XPos == 15) {
-                if (gameParams.playerYpos > gameParams.pipes1YPos + 17 || gameParams.playerYpos < gameParams.pipes1YPos - 17) {
+            if (gameParams.pipes1XPos == PLAYER_X_POS) {
+                if (gameParams.playerYpos > gameParams.pipes1YPos + gameParams.pipesDistance || gameParams.playerYpos < gameParams.pipes1YPos - gameParams.pipesDistance) {
                     gameOver = true;
                 } else {
+                    playPipesEffect();
                     gameParams.score++;
                 }
             }
 
-            if (gameParams.pipes2XPos == 15) {
-                if (gameParams.playerYpos > gameParams.pipes2YPos + 17 || gameParams.playerYpos < gameParams.pipes2YPos - 17) {
+            if (gameParams.pipes2XPos == PLAYER_X_POS) {
+                if (gameParams.playerYpos > gameParams.pipes2YPos + gameParams.pipesDistance || gameParams.playerYpos < gameParams.pipes2YPos - gameParams.pipesDistance) {
                     gameOver = true;
                 } else {
+                    playPipesEffect();
                     gameParams.score++;
                 }
             }
@@ -142,19 +161,23 @@ void gameFxn(UArg arg0, UArg arg1) {
 
         // Refresh rate 10hz
         //Task_sleep(100000 / Clock_tickPeriod);
-        Task_sleep(33333/Clock_tickPeriod);
+        Task_sleep((int)gameSpeed/Clock_tickPeriod);
     }
 }
 
 void startGame() {
-    gameParams.pipes1XPos = 96;
-    gameParams.pipes1YPos = 48;
-    gameParams.pipes2XPos = 48;
-    gameParams.pipes2YPos = 48;
-    gameParams.playerYpos = 48;
+    gameParams.pipes1XPos = SCREEN_FULL_DIM;
+    gameParams.pipes1YPos = SCREEN_HALF_DIM;
+    gameParams.pipes2XPos = SCREEN_HALF_DIM;
+    gameParams.pipes2YPos = SCREEN_HALF_DIM;
+    gameParams.pipesDistance = PIPES_DIST_START;
+    gameParams.playerYpos = SCREEN_HALF_DIM;
     gameParams.score = 0;
 
-    playerY = 48;
+    playerY = SCREEN_HALF_DIM;
+    yBias = ay;
+
+    gameSpeed = GAME_SPEED_START;
 
     startCount = true;
     gameActive = true;

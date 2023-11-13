@@ -50,12 +50,20 @@ static uint16_t SHAKING_STING_NOTES[] = {
 
 static struct song SHAKING_STING = { &SHAKING_STING_NOTES[0], 8, 100000 };
 
+static uint16_t PIPES_EFFECT_NOTES[] = {
+    1047, 1109, 1175
+};
+
+static struct song PIPES_EFFECT = { &PIPES_EFFECT_NOTES[0], 3, 75000 };
+
 void musixFxn(UArg arg0);
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
+void stopMusic();
 void toggleMusic();
 void playHappyTheme();
 void playAngryTheme();
 void playWaningBeep();
 void playMovingUpSting();
 void playShakingSting();
+void playPipesEffect();

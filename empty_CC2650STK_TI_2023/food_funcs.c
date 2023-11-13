@@ -13,21 +13,21 @@
 #define RUISLEIPA 1
 #define KORVAPUUSTI 2
 #define LOHIKEITTO 5
-#define KARJALANPAISTI 6
+#define LANTTUKUKKO 6
 #define ROSSYPOTTU 4
 
 #define SALMIAKKI_HAPPINESS 6
 #define RUISLEIPA_HAPPINESS 2
 #define KORVAPUUSTI_HAPPINESS 9
 #define LOHIKEITTO_HAPPINESS 5
-#define KARJALANPAISTI_HAPPINESS 7
+#define LANTTUKUKKO_HAPPINESS 7
 #define ROSSYPOTTU_HAPPINESS -2
 
 #define SALMIAKKI_COST 2
 #define RUISLEIPA_COST 1
 #define KORVAPUUSTI_COST 1
 #define LOHIKEITTO_COST 4
-#define KARJALANPAISTI_COST 3
+#define LANTTUKUKKO_COST 3
 #define ROSSYPOTTU_COST 1
 
 extern int coins;
@@ -72,11 +72,11 @@ void feedLohikeitto() {
     }
 }
 
-void feedKarjalanpaisti() {
-    if(coins >= KARJALANPAISTI_COST) {
-        giveFood(KARJALANPAISTI);
-        adjustHappiness(KARJALANPAISTI_HAPPINESS);
-        updateCoins(KARJALANPAISTI_COST);
+void feedLanttukukko() {
+    if(coins >= LANTTUKUKKO_COST) {
+        giveFood(LANTTUKUKKO);
+        adjustHappiness(LANTTUKUKKO_HAPPINESS);
+        updateCoins(LANTTUKUKKO_COST);
     } else {
         System_printf("No moni\n");
     }

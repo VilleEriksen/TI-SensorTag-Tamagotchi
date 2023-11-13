@@ -17,7 +17,7 @@
 #include "empty.h"
 
 
-#define STACKSIZE 1500
+#define STACKSIZE 1536
 Char taskStack[STACKSIZE];
 
 extern enum state1 programState;
@@ -25,6 +25,8 @@ extern enum state1 programState;
 // MPU power pin global variables
 static PIN_Handle hMpuPin;
 static PIN_State  MpuPinState;
+
+int gyroUpdateSpeed;
 
 // MPU power pin
 static PIN_Config MpuPinConfig[] = {
@@ -110,7 +112,7 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         // System_flush();
         programState = GYRO_DATA_READY;
         // Sleep 100ms
-        Task_sleep(100000 / Clock_tickPeriod);
+        Task_sleep(gyroUpdateSpeed / Clock_tickPeriod);
     }
 
     // Program never gets here..
@@ -123,6 +125,8 @@ Void sensorFxn(UArg arg0, UArg arg1) {
 void initMPU920() {
     Task_Handle task;
     Task_Params taskParams;
+
+    gyroUpdateSpeed = 100000;
 
     // Open MPU power pin
     hMpuPin = PIN_open(&MpuPinState, MpuPinConfig);
