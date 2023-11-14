@@ -92,6 +92,8 @@ void gameFxn(UArg arg0, UArg arg1) {
                 currentDisplayMode = MESSANGE;
                 Task_sleep(100000 / Clock_tickPeriod);
 
+                playGameLoseSting();
+
                 strcpy(msgText, "Game Over!");
                 updateDisplay = true;
                 Task_sleep(3000000 / Clock_tickPeriod);

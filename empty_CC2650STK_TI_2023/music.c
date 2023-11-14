@@ -98,11 +98,16 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
 }
 
 void stopMusic() {
-    songI = songStruct->length;
+    if (musicPlaying) {
+        PIN_setOutputValue(ledPinHandle, Board_LED0, false);
+        buzzerClose();
+        Clock_delete(&musicHandle);
+        musicPlaying = false;
+    }
 }
 
 void toggleMusic() {
-    musicEnabled =! musicEnabled;
+    musicEnabled = !musicEnabled;
 }
 
 void playHappyTheme() {
@@ -125,7 +130,10 @@ void playShakingSting() {
     startMusic(&SHAKING_STING, false);
 }
 
-
 void playPipesEffect() {
     startMusic(&PIPES_EFFECT, false);
+}
+
+void playGameLoseSting() {
+    startMusic(&GAME_LOSE_STING, false);
 }

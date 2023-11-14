@@ -116,7 +116,7 @@ int main(void)
     initGestureReader();
     initGestureActivator();
     //initBeep();
-    initOPT3001();
+    //initOPT3001();
 
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);

@@ -39,7 +39,7 @@ static uint16_t WARNING_BEEP_NOTES[] = {
 static struct song WARNING_BEEP = { &WARNING_BEEP_NOTES[0], 112, 12500 };
 
 static uint16_t MOVING_UP_STING_NOTES[] = {
-    1047, 1397, 1548, 1548, 1548, 1548
+    1047, 1397, 1568, 1568, 1568, 1568
 };
 
 static struct song MOVING_UP_STING = { &MOVING_UP_STING_NOTES[0], 6, 125000 };
@@ -56,6 +56,12 @@ static uint16_t PIPES_EFFECT_NOTES[] = {
 
 static struct song PIPES_EFFECT = { &PIPES_EFFECT_NOTES[0], 3, 75000 };
 
+static uint16_t GAME_LOSE_STRING_NOTES[] = {
+    1568, 1397, 1109, 1109, 1109, 1109
+};
+
+static struct song GAME_LOSE_STING = { &GAME_LOSE_STRING_NOTES[0], 6, 125000 };
+
 void musixFxn(UArg arg0);
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
@@ -67,3 +73,4 @@ void playWaningBeep();
 void playMovingUpSting();
 void playShakingSting();
 void playPipesEffect();
+void playGameLoseSting();
