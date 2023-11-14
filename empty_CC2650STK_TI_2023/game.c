@@ -37,7 +37,6 @@ extern enum displayMode currentDisplayMode;
 extern bool updateDisplay;
 extern char msgText[17];
 extern float ay;
-extern int gyroUpdateSpeed;
 
 #define GAME_STACKSIZE 1024
 Char gameStack[GAME_STACKSIZE];
@@ -55,7 +54,7 @@ float playerY = 0.0;
 int i1 = 0;
 int i2 = 1;
 
-float gameSpeed;
+float gameSpeed = 100000.0;
 char frame = 0;
 
 void gameFxn(UArg arg0, UArg arg1) {
@@ -78,7 +77,6 @@ void gameFxn(UArg arg0, UArg arg1) {
                 updateDisplay = true;
                 Task_sleep(1000000 / Clock_tickPeriod);
 
-                gyroUpdateSpeed = 33333;
                 playHappyTheme();
                 currentDisplayMode = GAME;
             }
@@ -87,7 +85,6 @@ void gameFxn(UArg arg0, UArg arg1) {
                 gameOver = false;
                 gameActive = false;
 
-                gyroUpdateSpeed = 100000;
                 stopMusic();
 
                 updateCoins(gameParams.score * -1);
@@ -190,6 +187,7 @@ void initGame() {
     Task_Params_init(&gameTaskParams);
     gameTaskParams.stackSize = GAME_STACKSIZE;
     gameTaskParams.stack = &gameStack;
+    gameTaskParams.priority = 2;
     gameTask = Task_create((Task_FuncPtr)gameFxn, &gameTaskParams, NULL);
     if (gameTask == NULL) {
         System_abort("Game create failed!");

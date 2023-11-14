@@ -23,5 +23,6 @@ struct gestureArray* createGestureArray(uint8_t size, enum gestures startGesure)
 void freeGestureArray(struct gestureArray* arr);
 void updateGestureArray(struct gestureArray *arr, enum gestures gesture);
 enum gestures calcGestureArrayAvg(enum gestures* arr, uint8_t size);
+bool gestureArrayContains(struct gestureArray* arr, enum gestures gesture);
 
 #endif /* UTIL_GESTUREARRAY_H_ */

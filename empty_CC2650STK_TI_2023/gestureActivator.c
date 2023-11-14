@@ -14,6 +14,7 @@
 #include <util/gestureArray.h>
 #include "empty.h"
 #include "music.h"
+#include "game.h"
 #include "communication.h"
 
 #define STACKSIZE2 1024
@@ -21,30 +22,30 @@ Char taskStack2[STACKSIZE2];
 
 extern enum state1 programState;
 extern struct gestureArray* gestureAvg;
+extern bool gameActive;
 
 void activateGestureFxn(UArg arg0, UArg arg1) {
     while(1) {
-        switch (gestureAvg->avg) {;
-            case NONE:
+        if (!gameActive) {
+            if (gestureArrayContains(gestureAvg, MOVE_UP)) {
                 // TODO: add func
-                //System_printf("Nothing");
-                break;
-            case MOVE_UP:
-                // TODO: add func
-                playMovingUpSting();
-                adjustHappiness(1);
-                //System_printf("Moving up");
-                break;
-            case SHAKE:
-                // TODO: add func
-                playShakingSting();
-                exercise(1);
-                //System_printf("Shaking");
-                break;
-            case DRINK:
-                // TODO: add func
-                //System_printf("Drinking");
-                break;
+               playMovingUpSting();
+               adjustHappiness(1);
+               //System_printf("Moving up");
+            } else {
+                switch (gestureAvg->avg) {;
+                   case NONE:
+                       // TODO: add func
+                       //System_printf("Nothing");
+                       break;
+                   case SHAKE:
+                       // TODO: add func
+                       playShakingSting();
+                       exercise(1);
+                       //System_printf("Shaking");
+                       break;
+                }
+            }
         }
 
         //System_printf("\n");
@@ -62,6 +63,7 @@ void initGestureActivator() {
     Task_Params_init(&taskParams2);
     taskParams2.stackSize = STACKSIZE2;
     taskParams2.stack = &taskStack2;
+    taskParams2.priority = 2;
     task2 = Task_create((Task_FuncPtr)activateGestureFxn, &taskParams2, NULL);
     if (task2 == NULL) {
         System_abort("Task create failed!");

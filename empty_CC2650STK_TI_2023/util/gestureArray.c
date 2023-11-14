@@ -71,3 +71,13 @@ enum gestures calcGestureArrayAvg(enum gestures* arr, uint8_t size) {
     return avg;
 }
 
+bool gestureArrayContains(struct gestureArray* arr, enum gestures gesture) {
+    uint8_t i;
+
+    for (i = 0; i < arr->size; i++) {
+        if (*(arr->arr + i) == gesture) return true;
+    }
+
+    return false;
+}
+

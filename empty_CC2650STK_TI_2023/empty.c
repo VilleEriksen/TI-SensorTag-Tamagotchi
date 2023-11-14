@@ -101,9 +101,9 @@ int main(void)
     /* Call board init functions */
     Board_initGeneral();
 
-    //initCommunication();
-
     initGame();
+
+    //initCommunication();
 
     initMusic();
     menu_init();

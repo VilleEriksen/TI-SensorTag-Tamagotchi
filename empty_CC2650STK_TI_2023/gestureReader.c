@@ -76,10 +76,11 @@ void initGestureReader() {
     Task_Params_init(&taskParams);
     taskParams.stackSize = STACKSIZE;
     taskParams.stack = &taskStack;
+    taskParams.priority = 2;
     task = Task_create((Task_FuncPtr)detectGestureFxn, &taskParams, NULL);
     if (task == NULL) {
         System_abort("Task create failed!");
     }
 
-    gestureAvg = createGestureArray(2, NONE);
+    gestureAvg = createGestureArray(5, NONE);
 }

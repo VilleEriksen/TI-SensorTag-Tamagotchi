@@ -15,18 +15,18 @@
 #include "util/avgArray.h"
 #include "sensors/mpu9250.h"
 #include "empty.h"
+#include "game.h"
 
 
 #define STACKSIZE 1536
 Char taskStack[STACKSIZE];
 
 extern enum state1 programState;
+extern bool gameActive;
 
 // MPU power pin global variables
 static PIN_Handle hMpuPin;
 static PIN_State  MpuPinState;
-
-int gyroUpdateSpeed;
 
 // MPU power pin
 static PIN_Config MpuPinConfig[] = {
@@ -51,7 +51,7 @@ float ax, ay, az, gx, gy, gz;
 
 double time;
 
-Void sensorFxn(UArg arg0, UArg arg1) {
+void sensorFxn(UArg arg0, UArg arg1) {
     //char printString[55];
     //char printString2[55];
 
@@ -92,7 +92,7 @@ Void sensorFxn(UArg arg0, UArg arg1) {
     while (1) {
         programState = GYRO_READ;
 
-        time = (double)Clock_getTicks() / 100000.0;
+        //time = (double)Clock_getTicks() / 100000.0;
 
         // MPU ask data
         mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
@@ -111,8 +111,9 @@ Void sensorFxn(UArg arg0, UArg arg1) {
         // System_printf(printString2);
         // System_flush();
         programState = GYRO_DATA_READY;
-        // Sleep 100ms
-        Task_sleep(gyroUpdateSpeed / Clock_tickPeriod);
+
+        if (gameActive) Task_sleep(33333 / Clock_tickPeriod);
+        else Task_sleep(100000 / Clock_tickPeriod);
     }
 
     // Program never gets here..
@@ -126,8 +127,6 @@ void initMPU920() {
     Task_Handle task;
     Task_Params taskParams;
 
-    gyroUpdateSpeed = 100000;
-
     // Open MPU power pin
     hMpuPin = PIN_open(&MpuPinState, MpuPinConfig);
     if (hMpuPin == NULL) {
@@ -137,6 +136,8 @@ void initMPU920() {
     Task_Params_init(&taskParams);
     taskParams.stackSize = STACKSIZE;
     taskParams.stack = &taskStack;
+    taskParams.priority = 2;
+
     task = Task_create((Task_FuncPtr)sensorFxn, &taskParams, NULL);
     if (task == NULL) {
         System_abort("Task create failed!");
