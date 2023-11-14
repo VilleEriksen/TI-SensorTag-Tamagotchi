@@ -45,6 +45,7 @@
 
 /* TI-RTOS Header files */
 #include <ti/drivers/PIN.h>
+#include <ti/drivers/I2C.h>
 
 /* Board Header files */
 #include "Board.h"
@@ -57,6 +58,7 @@
 #include "gestureActivator.h"
 #include "game.h"
 #include "communication.h"
+#include "lightSensor.h"
 
 #define BUTTON_0_ID 0
 #define BUTTON_1_ID 4
@@ -72,7 +74,7 @@ PIN_Config buttonConfig0[] = {
 };
 
 //global state variables
-enum state1 programState = WAITING;
+enum state1 programState = GYRO_INIT;
 
 static PIN_Handle buttonHandle1;
 static PIN_State buttonState1;
@@ -100,6 +102,7 @@ int main(void)
 {
     /* Call board init functions */
     Board_initGeneral();
+    Board_initI2C();
 
     initGame();
 
@@ -113,7 +116,8 @@ int main(void)
     initGestureReader();
     initGestureActivator();
     //initBeep();
-    //Board_initI2C();
+    initOPT3001();
+
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);
     if(!buttonHandle0) {

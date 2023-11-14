@@ -49,6 +49,8 @@ struct avgArray* gzAvg;
 
 float ax, ay, az, gx, gy, gz;
 
+bool openingMPU = false;
+
 double time;
 
 void sensorFxn(UArg arg0, UArg arg1) {
@@ -79,6 +81,7 @@ void sensorFxn(UArg arg0, UArg arg1) {
         System_abort("Error Initializing I2CMPU\n");
     }
 
+
     // MPU setup and calibration
     System_printf("MPU9250: Setup and calibration...\n");
     System_flush();
@@ -87,30 +90,36 @@ void sensorFxn(UArg arg0, UArg arg1) {
 
     System_printf("MPU9250: Setup and calibration OK\n");
     System_flush();
-
+    I2C_close(i2cMPU);
     // Loop forever
+
+    programState = WAITING;
+
     while (1) {
-        programState = GYRO_READ;
+        if (programState != OPT_INIT) {
+            programState = GYRO_READ;
+            i2cMPU = I2C_open(Board_I2C, &i2cMPUParams);
+            //time = (double)Clock_getTicks() / 100000.0;
 
-        //time = (double)Clock_getTicks() / 100000.0;
+            // MPU ask data
+            mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
 
-        // MPU ask data
-        mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
+            updateAvgArray(axAvg, ax);
+            updateAvgArray(ayAvg, ay);
+            updateAvgArray(azAvg, az);
+            updateAvgArray(gxAvg, gx);
+            updateAvgArray(gyAvg, gy);
+            updateAvgArray(gzAvg, gz);
 
-        updateAvgArray(axAvg, ax);
-        updateAvgArray(ayAvg, ay);
-        updateAvgArray(azAvg, az);
-        updateAvgArray(gxAvg, gx);
-        updateAvgArray(gyAvg, gy);
-        updateAvgArray(gzAvg, gz);
+            // sprintf(printString, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", time, axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
+            // System_printf(printString);
 
-        // sprintf(printString, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", time, axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
-        // System_printf(printString);
-
-        // sprintf(printString2, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", time, ax, ay, az, gx, gy, gz);
-        // System_printf(printString2);
-        // System_flush();
-        programState = GYRO_DATA_READY;
+            // sprintf(printString2, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", time, ax, ay, az, gx, gy, gz);
+            // System_printf(printString2);
+            // System_flush();
+            programState = GYRO_DATA_READY;
+            I2C_close(i2cMPU);
+        }
 
         if (gameActive) Task_sleep(33333 / Clock_tickPeriod);
         else Task_sleep(100000 / Clock_tickPeriod);
