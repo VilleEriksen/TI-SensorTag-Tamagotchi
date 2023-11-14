@@ -51,6 +51,8 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
         Task_sleep(250000 / Clock_tickPeriod);
     }
 
+    enum state1 oldState;
+
     programState = OPT_INIT;
 
     I2C_Handle      i2cOPT;
@@ -72,10 +74,12 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     System_flush();
 
     programState = WAITING;
-
     while (1) {
         if(programState != GYRO_READ) {
+            oldState = programState;
+            programState = OPT_READ;
             i2cOPT = I2C_open(Board_I2C_TMP, &i2cOPTParams);
+            Task_sleep(1000000 / Clock_tickPeriod);
 
             lux = opt3001_get_data(&i2cOPT);
             updateAvgArray(luxAvg, lux);
@@ -93,8 +97,9 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
             // Just for sanity check for exercise, you can comment this out
             System_flush();
             I2C_close(i2cOPT);
-
+            Task_sleep(1000000 / Clock_tickPeriod);
             // Once per second, you can modify this
+            programState = oldState;
             Task_sleep(1000000 / Clock_tickPeriod);
 
         }

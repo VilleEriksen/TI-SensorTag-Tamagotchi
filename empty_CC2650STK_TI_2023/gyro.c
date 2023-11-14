@@ -96,7 +96,7 @@ void sensorFxn(UArg arg0, UArg arg1) {
     programState = WAITING;
 
     while (1) {
-        if (programState != OPT_INIT) {
+        if (programState != OPT_INIT && programState != OPT_READ) {
             programState = GYRO_READ;
             i2cMPU = I2C_open(Board_I2C, &i2cMPUParams);
             //time = (double)Clock_getTicks() / 100000.0;
@@ -117,8 +117,10 @@ void sensorFxn(UArg arg0, UArg arg1) {
             // sprintf(printString2, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", time, ax, ay, az, gx, gy, gz);
             // System_printf(printString2);
             // System_flush();
-            programState = GYRO_DATA_READY;
+
             I2C_close(i2cMPU);
+
+            programState = GYRO_DATA_READY;
         }
 
         if (gameActive) Task_sleep(33333 / Clock_tickPeriod);

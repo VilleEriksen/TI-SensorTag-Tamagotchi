@@ -74,7 +74,7 @@ PIN_Config buttonConfig0[] = {
 };
 
 //global state variables
-enum state1 programState = GYRO_INIT;
+enum state1 programState = WAITING;
 
 static PIN_Handle buttonHandle1;
 static PIN_State buttonState1;
@@ -116,7 +116,7 @@ int main(void)
     initGestureReader();
     initGestureActivator();
     //initBeep();
-    //initOPT3001();
+    initOPT3001();
 
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);
