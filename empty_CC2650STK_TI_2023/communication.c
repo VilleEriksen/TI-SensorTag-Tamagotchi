@@ -5,12 +5,16 @@
 #include <wireless/comm_lib.h>
 
 #include "Board.h"
+#include "music.h"
 #include "communication.h"
 #include <stdio.h>
+#include <string.h>
 
 extern int coins;
 
-#define COMMSTACKSIZE 2048
+extern bool musicPlaying;
+
+#define COMMSTACKSIZE 512
 char commTaskStack[COMMSTACKSIZE];
 char payload[16];
 
@@ -74,16 +78,20 @@ void commTaskFxn(UArg arg0, UArg arg1) {
 
    //receiving
    while (true) {
-        if (GetRXFlag()) {
-           memset(payload,0,16);
-           Receive6LoWPAN(&senderAddr, payload, 16);
-           // check for beep message
-           if(payload == "3254,beep") {
-               beepMessage = true;
-               System_printf(payload);
-               System_flush();
+       if (musicPlaying) Task_sleep(100000/Clock_tickPeriod);
+       else {
+           if (GetRXFlag()) {
+               memset(payload,0,16);
+               Receive6LoWPAN(&senderAddr, payload, 16);
+               // check for beep message
+               //if(payload == "3254,beep") {
+               if(strstr(payload, "3254,beep") != NULL) {
+                   playWaningBeep();
+                   System_printf(payload);
+                   System_flush();
+               }
            }
-        }
+       }
    }
 }
 

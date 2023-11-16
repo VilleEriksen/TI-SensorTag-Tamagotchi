@@ -30,6 +30,7 @@
 #include "Board.h"
 #include "sensors/opt3001.h"
 #include "empty.h"
+#include "display.h"
 #include "util/avgArray.h"
 
 #define LIGHT_STACKSIZE 1024
@@ -37,6 +38,10 @@ Char lightTaskStack[LIGHT_STACKSIZE];
 
 extern enum state1 programState;
 extern bool i2C_INUSE;
+
+extern enum displayMode currentDisplayMode;
+extern bool updateDisplay;
+extern char msgText[17];
 
 double ambientLight = -1000.0;
 
@@ -50,6 +55,10 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     while (programState == GYRO_INIT) {
         Task_sleep(250000 / Clock_tickPeriod);
     }
+
+    currentDisplayMode = MESSANGE;
+    strcpy(msgText, "Initializing OPT");
+    updateDisplay = true;
 
     enum state1 oldState;
 
@@ -72,6 +81,9 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     I2C_close(i2cOPT);
     System_printf("OPT3001: Setup and calibration OK\n");
     System_flush();
+
+    currentDisplayMode = MENU;
+    updateDisplay = true;
 
     programState = WAITING;
     while (1) {

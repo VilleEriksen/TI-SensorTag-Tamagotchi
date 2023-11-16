@@ -11,6 +11,8 @@
 #include "music.h"
 #include "food_funcs.h"
 #include "game.h"
+#include "gyro.h"
+#include "lightSensor.h"
 #include "menu.h"
 
 void menu_moveBy(int steps);
@@ -66,10 +68,12 @@ static struct menuItem OPTIONS_MENU_ITEMS[] = {
     { .itemText = "Toggle audio", .hasFunc = true, .nextFunc = toggleMusic },
     { .itemText = "Death off",    .hasFunc = true },
     { .itemText = "Start new",    .hasFunc = true },
+    { .itemText = "Init MPU",     .hasFunc = true,  .nextFunc = initMPU920 },
+    { .itemText = "Init OPT",     .hasFunc = true,  .nextFunc = initOPT3001 },
     { .itemText = "Back",         .hasFunc = true, .nextFunc = menu_reset },
 };
 
-static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[0], 0, 4 };
+static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[0], 0, 6 };
 
 // Main menu
 

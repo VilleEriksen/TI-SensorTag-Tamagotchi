@@ -65,7 +65,7 @@ void gameFxn(UArg arg0, UArg arg1) {
                 startCount = false;
 
                 currentDisplayMode = MESSANGE;
-                Task_sleep(100000 / Clock_tickPeriod);
+                //Task_sleep(100000 / Clock_tickPeriod);
 
                 strcpy(msgText, "3");
                 updateDisplay = true;

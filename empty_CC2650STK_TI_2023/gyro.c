@@ -9,12 +9,14 @@
 #include <ti/drivers/pin/PINCC26XX.h>
 
 #include <stdio.h>
+#include <string.h>
 
 #include "Board.h"
 #include "gyro.h"
 #include "util/avgArray.h"
 #include "sensors/mpu9250.h"
 #include "empty.h"
+#include "display.h"
 #include "game.h"
 
 
@@ -23,6 +25,10 @@ Char taskStack[STACKSIZE];
 
 extern enum state1 programState;
 extern bool gameActive;
+
+extern enum displayMode currentDisplayMode;
+extern bool updateDisplay;
+extern char msgText[17];
 
 // MPU power pin global variables
 static PIN_Handle hMpuPin;
@@ -59,6 +65,10 @@ void sensorFxn(UArg arg0, UArg arg1) {
 
     //float shake = 0;
 
+    currentDisplayMode = MESSANGE;
+    strcpy(msgText, "Initializing MPU");
+    updateDisplay = true;
+
     I2C_Handle i2cMPU; // Own i2c-interface for MPU9250 sensor
     I2C_Params i2cMPUParams;
 
@@ -81,7 +91,6 @@ void sensorFxn(UArg arg0, UArg arg1) {
         System_abort("Error Initializing I2CMPU\n");
     }
 
-
     // MPU setup and calibration
     System_printf("MPU9250: Setup and calibration...\n");
     System_flush();
@@ -90,15 +99,18 @@ void sensorFxn(UArg arg0, UArg arg1) {
 
     System_printf("MPU9250: Setup and calibration OK\n");
     System_flush();
-    I2C_close(i2cMPU);
+    //I2C_close(i2cMPU);
     // Loop forever
+
+    currentDisplayMode = MENU;
+    updateDisplay = true;
 
     programState = WAITING;
 
     while (1) {
         if (programState != OPT_INIT && programState != OPT_READ) {
             programState = GYRO_READ;
-            i2cMPU = I2C_open(Board_I2C, &i2cMPUParams);
+            //i2cMPU = I2C_open(Board_I2C, &i2cMPUParams);
             //time = (double)Clock_getTicks() / 100000.0;
 
             // MPU ask data
@@ -118,7 +130,7 @@ void sensorFxn(UArg arg0, UArg arg1) {
             // System_printf(printString2);
             // System_flush();
 
-            I2C_close(i2cMPU);
+            //I2C_close(i2cMPU);
 
             programState = GYRO_DATA_READY;
         }

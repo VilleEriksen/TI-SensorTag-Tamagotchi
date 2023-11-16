@@ -106,17 +106,17 @@ int main(void)
 
     initGame();
 
-    //initCommunication();
+    initCommunication();
 
     initMusic();
     menu_init();
 
     initDisplay();
-    initMPU920();
+    //initMPU920();
     initGestureReader();
     initGestureActivator();
     //initBeep();
-    initOPT3001();
+    //initOPT3001();
 
 
     buttonHandle0 = PIN_open(&buttonState0, buttonConfig0);

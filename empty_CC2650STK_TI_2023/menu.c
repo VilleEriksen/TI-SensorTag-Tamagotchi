@@ -15,23 +15,24 @@
 extern bool displayUpdating;
 extern bool updateDisplay;
 extern bool partialUpdateDisplay;
+extern enum displayMode currentDisplayMode;
 
 void display_menuUp() {
-    if (!displayUpdating) {
+    if (currentDisplayMode == MENU && !displayUpdating) {
         menu_moveBy(-1);
         partialUpdateDisplay = true;
     }
 }
 
 void display_menuDown() {
-    if (!displayUpdating) {
+    if (currentDisplayMode == MENU && !displayUpdating) {
         menu_moveBy(1);
         partialUpdateDisplay = true;
     }
 }
 
 void display_menuActivate() {
-    if (!displayUpdating) {
+    if (currentDisplayMode == MENU && !displayUpdating) {
         menu_activate(1);
         updateDisplay = true;
     }

@@ -20,18 +20,10 @@
 static Clock_Handle musicHandle;
 static Clock_Params musicParams;
 
-static PIN_Handle ledPinHandle;
-static PIN_State ledPinState;
-
 static PIN_Handle hBuzzer;
 static PIN_State sBuzzer;
 PIN_Config cBuzzer[] = {
     Board_BUZZER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-    PIN_TERMINATE
-};
-
-PIN_Config ledPinTable[] = {
-    Board_LED0 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
     PIN_TERMINATE
 };
 
@@ -50,7 +42,7 @@ void musixFxn(UArg arg0) {
             (songStruct->song) -= songI;
             songI = 0;
         } else {
-            PIN_setOutputValue(ledPinHandle, Board_LED0, false);
+            //PIN_setOutputValue(ledPinHandle, Board_LED0, false);
             buzzerClose();
             Clock_delete(&musicHandle);
             musicPlaying = false;
@@ -58,7 +50,7 @@ void musixFxn(UArg arg0) {
         }
     }
 
-    PIN_setOutputValue(ledPinHandle, Board_LED0, !PIN_getOutputValue(Board_LED0));
+    //PIN_setOutputValue(ledPinHandle, Board_LED0, !PIN_getOutputValue(Board_LED0));
     buzzerSetFrequency(songStruct->song[songI]);
     songI++;
 }
@@ -68,11 +60,6 @@ void initMusic() {
     hBuzzer = PIN_open(&sBuzzer, cBuzzer);
     if (hBuzzer == NULL) {
         System_abort("Pin open failed!");
-    }
-
-    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
-    if(!ledPinHandle) {
-        System_abort("Error initializing board LED pins\n");
     }
 
     Clock_Params_init(&musicParams);
@@ -99,7 +86,6 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
 
 void stopMusic() {
     if (musicPlaying) {
-        PIN_setOutputValue(ledPinHandle, Board_LED0, false);
         buzzerClose();
         Clock_delete(&musicHandle);
         musicPlaying = false;
