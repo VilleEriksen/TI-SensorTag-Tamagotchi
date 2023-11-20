@@ -53,10 +53,15 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
             shake += abs(gyAvg->avg - gy);
             shake += abs(gzAvg->avg - gz);
 
-            if (luxAvg->avg < 0.10 && ligthInitalized) {
-                updateGestureArray(gestureAvg, PET);
-                currentGesture = PET;
-            } else if (gyroInitalized) {
+            if (ligthInitalized) {
+                if(luxAvg->avg == 0) {
+                    updateGestureArray(gestureAvg, PET);
+                    currentGesture = PET;
+                } else {
+                    updateGestureArray(gestureAvg, NONE);
+                    currentGesture = NONE;
+                }
+            }  if (gyroInitalized) {
                 if (shake > SHAKING_THRESHOLD) {
                     updateGestureArray(gestureAvg, SHAKE);
                     currentGesture = SHAKE;
@@ -66,10 +71,15 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
                 } else if (gyAvg->avg > MOVING_UP_THRESHOLD && gyAvg->avg > abs(gxAvg->avg) && gyAvg->avg > abs(gzAvg->avg) && abs(axAvg->avg) < MOVING_UP_AX_THRESHOLD && abs(ayAvg->avg) < MOVING_UP_AY_THRESHOLD) {
                     updateGestureArray(gestureAvg, MOVE_UP);
                     currentGesture = MOVE_UP;
+                } else if (abs(gzAvg->avg) > 40) {
+                    updateGestureArray(gestureAvg, PLAY);
+                    currentGesture = PLAY;
                 } else {
                     updateGestureArray(gestureAvg, NONE);
                     currentGesture = NONE;
                 }
+            } else {
+                currentGesture = NONE;
             }
 
             programState = GESTURE_READY;

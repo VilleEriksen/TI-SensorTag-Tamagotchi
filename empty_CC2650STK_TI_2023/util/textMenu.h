@@ -15,6 +15,8 @@
 #include "lightSensor.h"
 #include "menu.h"
 
+#include "Board.h"
+
 void menu_moveBy(int steps);
 void menu_activate();
 void menu_reset();

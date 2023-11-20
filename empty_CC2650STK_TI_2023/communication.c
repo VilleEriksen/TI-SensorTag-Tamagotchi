@@ -69,6 +69,15 @@ void giveFood(uint8_t foodAmount) {
    StartReceive6LoWPAN();
 }
 
+void sendString(char string[16]) {
+
+   System_printf(string);
+   System_printf("\n");
+   System_flush();
+   Send6LoWPAN(IEEE80154_SERVER_ADDR, string, strlen(string));
+   StartReceive6LoWPAN();
+}
+
 void commTaskFxn(UArg arg0, UArg arg1) {
 
    char payload[16];

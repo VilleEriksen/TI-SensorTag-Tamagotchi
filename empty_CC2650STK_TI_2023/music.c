@@ -13,117 +13,46 @@
 #include "Board.h"
 #include "buzzer.h"
 #include "music.h"
+#include "communication.h"
 #include "empty.h"
 
-// Task vars
-
-static Clock_Handle musicHandle;
-static Clock_Params musicParams;
-
-static PIN_Handle hBuzzer;
-static PIN_State sBuzzer;
-PIN_Config cBuzzer[] = {
-    Board_BUZZER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-    PIN_TERMINATE
-};
-
-struct song *songStruct;
-
-bool musicEnabled = true;
-bool musicPlaying = false;
-
-uint16_t songI;
-bool loopMusic;
-
-void musixFxn(UArg arg0) {
-    if (songI >= songStruct->length) {
-        if (loopMusic) {
-            // Return to the starting pointer.
-            (songStruct->song) -= songI;
-            songI = 0;
-        } else {
-            //PIN_setOutputValue(ledPinHandle, Board_LED0, false);
-            buzzerClose();
-            Clock_delete(&musicHandle);
-            musicPlaying = false;
-            return;
-        }
-    }
-
-    //PIN_setOutputValue(ledPinHandle, Board_LED0, !PIN_getOutputValue(Board_LED0));
-    buzzerSetFrequency(songStruct->song[songI]);
-    songI++;
-}
-
-void initMusic() {
-    // Buzzer
-    hBuzzer = PIN_open(&sBuzzer, cBuzzer);
-    if (hBuzzer == NULL) {
-        System_abort("Pin open failed!");
-    }
-
-    Clock_Params_init(&musicParams);
-    musicParams.startFlag = TRUE;
-}
-
-void startMusic(struct song *songVar, bool loopMusicVar) {
-    if (musicPlaying || !musicEnabled) return;
-
-    songStruct = songVar;
-    loopMusic = loopMusicVar;
-    songI = 0;
-
-    buzzerOpen(hBuzzer);
-
-    musicParams.period = songVar->speed / Clock_tickPeriod;
-    musicHandle = Clock_create((Clock_FuncPtr)musixFxn, songVar->speed / Clock_tickPeriod, &musicParams, NULL);
-    if (musicHandle == NULL) {
-        System_abort("Music create failed!");
-    }
-
-    musicPlaying = true;
-}
 
 void stopMusic() {
-    if (musicPlaying) {
-        buzzerClose();
-        Clock_delete(&musicHandle);
-        musicPlaying = false;
-    }
+    sendString("S");
 }
 
 void toggleMusic() {
-    musicEnabled = !musicEnabled;
+    sendString("T");
 }
 
 void playHappyTheme() {
-    startMusic(&HAPPY_THEME, false);
+    sendString("P1");
 }
 
 void playAngryTheme() {
-    startMusic(&ANGRY_THEME, false);
+    sendString("P2");
 }
 
 void playWaningBeep() {
-    startMusic(&WARNING_BEEP, false);
+    sendString("P3");
 }
 
 void playMovingUpSting() {
-    startMusic(&MOVING_UP_STING, false);
+    sendString("P4");
 }
 
 void playShakingSting() {
-    startMusic(&SHAKING_STING, false);
+    sendString("P5");
 }
 
 void playPlayingString() {
-    startMusic(&PLAYING_STING, false);
+    sendString("P6");
 }
 
 void playPipesEffect() {
-    startMusic(&PIPES_EFFECT, false);
+    sendString("P7");
 }
 
 void playGameLoseSting() {
-    startMusic(&GAME_LOSE_STING, false);
+    sendString("P8");
 }

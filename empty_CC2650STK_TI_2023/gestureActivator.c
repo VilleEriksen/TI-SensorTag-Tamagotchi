@@ -28,31 +28,26 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
     while(1) {
         if (!gameActive) {
             if (gestureArrayContains(gestureAvg, MOVE_UP)) {
-                // TODO: add func
                playMovingUpSting();
                adjustHappiness(1);
-               //System_printf("Moving up");
             } else {
                 switch (gestureAvg->avg) {;
                    case NONE:
-                       // TODO: add func
-                       //System_printf("Nothing");
                        break;
                    case PET:
                        pet(1);
                        break;
                    case SHAKE:
-                       // TODO: add func
                        playShakingSting();
                        exercise(1);
-                       //System_printf("Shaking");
+                       break;
+                   case PLAY:
+                       exercice(1);
+                       pet(1);
                        break;
                 }
             }
         }
-
-        //System_printf("\n");
-        //System_flush();
 
         // Sleep 500ms
         Task_sleep(500000 / Clock_tickPeriod);

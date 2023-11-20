@@ -109,7 +109,6 @@ int main(void)
 
     initCommunication();
 
-    initMusic();
     menu_init();
 
     initDisplay();

@@ -8,6 +8,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include <ti/sysbios/knl/Task.h>
+
 #define SCREEN_FULL_DIM 96
 #define SCREEN_HALF_DIM 48;
 
