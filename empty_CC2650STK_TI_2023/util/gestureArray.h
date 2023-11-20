@@ -10,7 +10,7 @@
 
 #include "Board.h"
 
-enum gestures { NONE, MOVE_UP, SHAKE, DRINK };
+enum gestures { NONE, MOVE_UP, SHAKE, DRINK, PET };
 
 struct gestureArray {
     enum gestures* arr;

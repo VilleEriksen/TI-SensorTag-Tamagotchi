@@ -11,6 +11,7 @@
 #include <string.h>
 
 extern int coins;
+extern int happiness;
 
 extern bool musicPlaying;
 
@@ -25,7 +26,7 @@ void pet(uint8_t petAmount) {
    System_printf(payload);
    System_printf("\n");
    System_flush();
-   //Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
+   Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
    StartReceive6LoWPAN();
    adjustHappiness(1);
 }
@@ -35,7 +36,7 @@ void exercise(uint8_t exerciseAmount) {
    System_printf(payload);
    System_printf("\n");
    System_flush();
-   //Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
+   Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
    StartReceive6LoWPAN();
 }
 
@@ -45,16 +46,17 @@ void updateCoins(int8_t coinsAmount) {
     System_printf(payload);
     System_printf("\n");
     System_flush();
-    //Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
+    Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
     StartReceive6LoWPAN();
 }
 
 void adjustHappiness(int8_t happinessAmount) {
-    sprintf(payload, "MSG1:Happiness:%d", happinessAmount);
+    happiness += happinessAmount;
+    sprintf(payload, "MSG1:Happiness:%d", happiness);
     System_printf(payload);
     System_printf("\n");
     System_flush();
-    //Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
+    Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
     StartReceive6LoWPAN();
 }
 
@@ -63,7 +65,7 @@ void giveFood(uint8_t foodAmount) {
    System_printf(payload);
    System_printf("\n");
    System_flush();
-   //Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
+   Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
    StartReceive6LoWPAN();
 }
 
@@ -78,18 +80,15 @@ void commTaskFxn(UArg arg0, UArg arg1) {
 
    //receiving
    while (true) {
-       if (musicPlaying) Task_sleep(100000/Clock_tickPeriod);
-       else {
-           if (GetRXFlag()) {
-               memset(payload,0,16);
-               Receive6LoWPAN(&senderAddr, payload, 16);
-               // check for beep message
-               //if(payload == "3254,beep") {
-               if(strstr(payload, "3254,beep") != NULL) {
-                   playWaningBeep();
-                   System_printf(payload);
-                   System_flush();
-               }
+       if (GetRXFlag()) {
+           memset(payload,0,16);
+           Receive6LoWPAN(&senderAddr, payload, 16);
+           // check for beep message
+           //if(payload == "3254,beep") {
+           if(strstr(payload, "3254,beep") != NULL) {
+               playWaningBeep();
+               System_printf(payload);
+               System_flush();
            }
        }
    }

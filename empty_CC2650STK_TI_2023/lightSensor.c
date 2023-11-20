@@ -36,6 +36,8 @@
 #define LIGHT_STACKSIZE 1024
 Char lightTaskStack[LIGHT_STACKSIZE];
 
+bool ligthInitalized = false;
+
 extern enum state1 programState;
 extern bool i2C_INUSE;
 
@@ -60,10 +62,6 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     strcpy(msgText, "Initializing OPT");
     updateDisplay = true;
 
-    enum state1 oldState;
-
-    programState = OPT_INIT;
-
     I2C_Handle      i2cOPT;
     I2C_Params      i2cOPTParams;
     I2C_Params_init(&i2cOPTParams);
@@ -78,43 +76,24 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     System_flush();
     Task_sleep(100000 / Clock_tickPeriod);
     opt3001_setup(&i2cOPT);
-    I2C_close(i2cOPT);
     System_printf("OPT3001: Setup and calibration OK\n");
     System_flush();
 
     currentDisplayMode = MENU;
     updateDisplay = true;
 
+    ligthInitalized = true;
+
     programState = WAITING;
     while (1) {
-        if(programState != GYRO_READ) {
-            oldState = programState;
-            programState = OPT_READ;
-            i2cOPT = I2C_open(Board_I2C_TMP, &i2cOPTParams);
-            Task_sleep(1000000 / Clock_tickPeriod);
+        programState = OPT_READ;
 
-            lux = opt3001_get_data(&i2cOPT);
-            updateAvgArray(luxAvg, lux);
+        lux = opt3001_get_data(&i2cOPT);
+        updateAvgArray(luxAvg, lux);
 
-            if (lux != -1) {
-                //System_printf("sensorTask: ");
-                //sprintf(luxString,"%.2lf\n",lux);
-                //System_printf(luxString);
-            }
+        programState = DATA_READY;
 
-            if(luxAvg -> avg < 0.10) {
-                //System_printf("Petting \n");
-            }
-
-            // Just for sanity check for exercise, you can comment this out
-            System_flush();
-            I2C_close(i2cOPT);
-            Task_sleep(1000000 / Clock_tickPeriod);
-            // Once per second, you can modify this
-            programState = oldState;
-            Task_sleep(1000000 / Clock_tickPeriod);
-
-        }
+        Task_sleep(1000000 / Clock_tickPeriod);
     }
 }
 

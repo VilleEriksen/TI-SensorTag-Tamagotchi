@@ -116,6 +116,10 @@ void playShakingSting() {
     startMusic(&SHAKING_STING, false);
 }
 
+void playPlayingString() {
+    startMusic(&PLAYING_STING, false);
+}
+
 void playPipesEffect() {
     startMusic(&PIPES_EFFECT, false);
 }

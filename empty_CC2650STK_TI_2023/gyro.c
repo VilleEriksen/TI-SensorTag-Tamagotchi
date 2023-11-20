@@ -46,6 +46,8 @@ static const I2CCC26XX_I2CPinCfg i2cMPUCfg = {
     .pinSCL = Board_I2C0_SCL1
 };
 
+bool gyroInitalized = false;
+
 struct avgArray* axAvg;
 struct avgArray* ayAvg;
 struct avgArray* azAvg;
@@ -105,6 +107,8 @@ void sensorFxn(UArg arg0, UArg arg1) {
     currentDisplayMode = MENU;
     updateDisplay = true;
 
+    gyroInitalized = true;
+
     programState = WAITING;
 
     while (1) {
@@ -132,7 +136,7 @@ void sensorFxn(UArg arg0, UArg arg1) {
 
             //I2C_close(i2cMPU);
 
-            programState = GYRO_DATA_READY;
+            programState = DATA_READY;
         }
 
         if (gameActive) Task_sleep(33333 / Clock_tickPeriod);

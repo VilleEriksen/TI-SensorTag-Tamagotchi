@@ -50,6 +50,12 @@ static uint16_t SHAKING_STING_NOTES[] = {
 
 static struct song SHAKING_STING = { &SHAKING_STING_NOTES[0], 8, 100000 };
 
+static uint16_t PLAYING_STING_NOTES[] = {
+    1568, 1568, 1568, 1568, 2093, 1976, 1760, 1568
+};
+
+static struct song PLAYING_STING = { &PLAYING_STING_NOTES[0], 8, 125000 };
+
 static uint16_t PIPES_EFFECT_NOTES[] = {
     1047, 1109, 1175
 };
@@ -72,5 +78,6 @@ void playAngryTheme();
 void playWaningBeep();
 void playMovingUpSting();
 void playShakingSting();
+void playPlayingString();
 void playPipesEffect();
 void playGameLoseSting();

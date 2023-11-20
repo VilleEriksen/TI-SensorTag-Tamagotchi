@@ -64,6 +64,7 @@
 #define BUTTON_1_ID 4
 
 int coins = 50;
+int happiness = 50;
 
 static PIN_Handle buttonHandle0;
 static PIN_State buttonState0;

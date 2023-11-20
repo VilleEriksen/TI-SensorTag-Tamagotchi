@@ -15,8 +15,12 @@
 #include "util/avgArray.h"
 #include <util/gestureArray.h>
 #include "empty.h"
+#include "lightSensor.h"
 
 extern enum state1 programState;
+
+extern bool ligthInitalized;
+extern bool gyroInitalized;
 
 extern struct avgArray* axAvg;
 extern struct avgArray* ayAvg;
@@ -24,6 +28,8 @@ extern struct avgArray* azAvg;
 extern struct avgArray* gxAvg;
 extern struct avgArray* gyAvg;
 extern struct avgArray* gzAvg;
+
+extern struct avgArray* luxAvg;
 
 extern float ax, ay, az, gx, gy, gz;
 
@@ -38,7 +44,7 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
     float shake;
 
     while(1) {
-        if (programState == GYRO_DATA_READY) {
+        if (programState == DATA_READY) {
             programState = DETECT_GESTURE;
 
             shake = 0;
@@ -47,18 +53,23 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
             shake += abs(gyAvg->avg - gy);
             shake += abs(gzAvg->avg - gz);
 
-            if (shake > SHAKING_THRESHOLD) {
-                updateGestureArray(gestureAvg, SHAKE);
-                currentGesture = SHAKE;
-            } else if (ayAvg->avg > DRINK_A_TRESHOLD && gyAvg->avg > DRINK_G_TRESHOLD && gyAvg->avg > abs(gxAvg->avg) && gyAvg->avg > abs(gzAvg->avg)) {
-                updateGestureArray(gestureAvg, DRINK);
-                currentGesture = DRINK;
-            } else if (gyAvg->avg > MOVING_UP_THRESHOLD && gyAvg->avg > abs(gxAvg->avg) && gyAvg->avg > abs(gzAvg->avg) && abs(axAvg->avg) < MOVING_UP_AX_THRESHOLD && abs(ayAvg->avg) < MOVING_UP_AY_THRESHOLD) {
-                updateGestureArray(gestureAvg, MOVE_UP);
-                currentGesture = MOVE_UP;
-            } else {
-                updateGestureArray(gestureAvg, NONE);
-                currentGesture = NONE;
+            if (luxAvg->avg < 0.10 && ligthInitalized) {
+                updateGestureArray(gestureAvg, PET);
+                currentGesture = PET;
+            } else if (gyroInitalized) {
+                if (shake > SHAKING_THRESHOLD) {
+                    updateGestureArray(gestureAvg, SHAKE);
+                    currentGesture = SHAKE;
+                } else if (ayAvg->avg > DRINK_A_TRESHOLD && gyAvg->avg > DRINK_G_TRESHOLD && gyAvg->avg > abs(gxAvg->avg) && gyAvg->avg > abs(gzAvg->avg)) {
+                    updateGestureArray(gestureAvg, DRINK);
+                    currentGesture = DRINK;
+                } else if (gyAvg->avg > MOVING_UP_THRESHOLD && gyAvg->avg > abs(gxAvg->avg) && gyAvg->avg > abs(gzAvg->avg) && abs(axAvg->avg) < MOVING_UP_AX_THRESHOLD && abs(ayAvg->avg) < MOVING_UP_AY_THRESHOLD) {
+                    updateGestureArray(gestureAvg, MOVE_UP);
+                    currentGesture = MOVE_UP;
+                } else {
+                    updateGestureArray(gestureAvg, NONE);
+                    currentGesture = NONE;
+                }
             }
 
             programState = GESTURE_READY;

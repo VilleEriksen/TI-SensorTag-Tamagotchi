@@ -38,6 +38,9 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
                        // TODO: add func
                        //System_printf("Nothing");
                        break;
+                   case PET:
+                       pet(1);
+                       break;
                    case SHAKE:
                        // TODO: add func
                        playShakingSting();
