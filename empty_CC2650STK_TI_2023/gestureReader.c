@@ -30,10 +30,13 @@ extern struct avgArray* gyAvg;
 extern struct avgArray* gzAvg;
 
 extern struct avgArray* luxAvg;
+extern float lux;
 
 extern float ax, ay, az, gx, gy, gz;
 
 struct gestureArray* gestureAvg;
+
+char printString[16];
 
 #define STACKSIZE 16
 Char taskStack[STACKSIZE];
@@ -52,9 +55,8 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
             //shake += abs(gxAvg->avg - gx);
             shake += abs(gyAvg->avg - gy);
             shake += abs(gzAvg->avg - gz);
-
             if (ligthInitalized) {
-                if(luxAvg->avg == 0) {
+                if(lux == 0) {
                     updateGestureArray(gestureAvg, PET);
                     currentGesture = PET;
                 } else {

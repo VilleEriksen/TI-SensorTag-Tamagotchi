@@ -15,11 +15,13 @@
 #include "empty.h"
 #include "music.h"
 #include "game.h"
+
 #include "communication.h"
 
 #define STACKSIZE2 1024
 Char taskStack2[STACKSIZE2];
 
+extern enum gestures currentGesture;
 extern enum state1 programState;
 extern struct gestureArray* gestureAvg;
 extern bool gameActive;
@@ -30,6 +32,8 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
             if (gestureArrayContains(gestureAvg, MOVE_UP)) {
                playMovingUpSting();
                adjustHappiness(1);
+            } else if(currentGesture == PET) {
+                pet(1);
             } else {
                 switch (gestureAvg->avg) {;
                    case NONE:
@@ -42,7 +46,8 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
                        exercise(1);
                        break;
                    case PLAY:
-                       exercice(1);
+                       playPlayingString();
+                       exercise(1);
                        pet(1);
                        break;
                 }

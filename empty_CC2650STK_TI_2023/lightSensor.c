@@ -112,6 +112,6 @@ void initOPT3001() {
         System_abort("Task create failed!");
     }
 
-    luxAvg = createAvgArray(3, 0);
+    luxAvg = createAvgArray(1, 0);
 }
 

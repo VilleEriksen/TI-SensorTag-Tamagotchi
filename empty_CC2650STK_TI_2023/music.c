@@ -45,6 +45,7 @@ void playShakingSting() {
     sendString("P5");
 }
 
+
 void playPlayingString() {
     sendString("P6");
 }
@@ -56,3 +57,4 @@ void playPipesEffect() {
 void playGameLoseSting() {
     sendString("P8");
 }
+
