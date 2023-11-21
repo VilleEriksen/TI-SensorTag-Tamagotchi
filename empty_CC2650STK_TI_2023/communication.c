@@ -17,7 +17,7 @@ extern bool musicPlaying;
 
 #define COMMSTACKSIZE 512
 char commTaskStack[COMMSTACKSIZE];
-char payload[16];
+char payload[128];
 
 bool beepMessage = false;
 
@@ -28,7 +28,6 @@ void pet(uint8_t petAmount) {
    System_flush();
    Send6LoWPAN(IEEE80154_SERVER_ADDR, payload, strlen(payload));
    StartReceive6LoWPAN();
-   adjustHappiness(1);
 }
 
 void exercise(uint8_t exerciseAmount) {
@@ -42,7 +41,7 @@ void exercise(uint8_t exerciseAmount) {
 
 void updateCoins(int8_t coinsAmount) {
     coins -= coinsAmount;
-    sprintf(payload, "MSG2:Coins:%d", coins);
+    sprintf(payload, "MSG1:Coins:%d", coins);
     System_printf(payload);
     System_printf("\n");
     System_flush();
@@ -94,7 +93,7 @@ void commTaskFxn(UArg arg0, UArg arg1) {
            Receive6LoWPAN(&senderAddr, payload, 16);
            // check for beep message
            //if(payload == "3254,beep") {
-           if(strstr(payload, "3254,beep") != NULL) {
+           if(strstr(payload, "3254,BEEP") != NULL) {
                playWaningBeep();
                System_printf(payload);
                System_flush();
@@ -119,4 +118,6 @@ void initCommunication() {
         System_abort("Task create failed!");
     }
 }
+
+
 

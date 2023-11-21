@@ -31,14 +31,14 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
         if (!gameActive) {
             if (gestureArrayContains(gestureAvg, MOVE_UP)) {
                playMovingUpSting();
-               adjustHappiness(1);
-            } else if(currentGesture == PET) {
-                pet(1);
+               pet(1);
+
             } else {
                 switch (gestureAvg->avg) {;
                    case NONE:
                        break;
                    case PET:
+                       playShakingSting();
                        pet(1);
                        break;
                    case SHAKE:

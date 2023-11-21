@@ -35,50 +35,50 @@ extern int coins;
 void feedSalmiakki() {
     if(coins >= SALMIAKKI_COST) {
         giveFood(SALMIAKKI);
-        adjustHappiness(SALMIAKKI_HAPPINESS);
+        pet(SALMIAKKI_HAPPINESS);
         updateCoins(SALMIAKKI_COST);
     } else {
-        System_printf("No coin\n");
+        sendString("MSG1:NO_MONEY");
     }
 }
 
 void feedRuisleipa() {
     if(coins >= RUISLEIPA_COST) {
         giveFood(RUISLEIPA);
-        adjustHappiness(RUISLEIPA_HAPPINESS);
+        pet(RUISLEIPA_HAPPINESS);
         updateCoins(RUISLEIPA_COST);
     } else {
-        System_printf("No moni\n");
+        sendString("MSG1:NO_MONEY");
     }
 }
 
 void feedKorvapuusti() {
     if(coins >= KORVAPUUSTI_COST) {
         giveFood(KORVAPUUSTI);
-        adjustHappiness(KORVAPUUSTI_HAPPINESS);
+        pet(KORVAPUUSTI_HAPPINESS);
         updateCoins(KORVAPUUSTI_COST);
     } else {
-        System_printf("No coin\n");
+        sendString("MSG1:NO_MONEY");
     }
 }
 
 void feedLohikeitto() {
     if(coins >= LOHIKEITTO_COST) {
         giveFood(LOHIKEITTO);
-        adjustHappiness(LOHIKEITTO_HAPPINESS);
+        pet(LOHIKEITTO_HAPPINESS);
         updateCoins(LOHIKEITTO_COST);
     } else {
-        System_printf("No moni\n");
+        sendString("MSG1:NO_MONEY");
     }
 }
 
 void feedLanttukukko() {
     if(coins >= LANTTUKUKKO_COST) {
         giveFood(LANTTUKUKKO);
-        adjustHappiness(LANTTUKUKKO_HAPPINESS);
+        pet(LANTTUKUKKO_HAPPINESS);
         updateCoins(LANTTUKUKKO_COST);
     } else {
-        System_printf("No moni\n");
+        sendString("MSG1:NO_MONEY");
     }
 
 }
@@ -86,9 +86,9 @@ void feedLanttukukko() {
 void feedRossypottu() {
     if(coins >= ROSSYPOTTU_COST) {
         giveFood(ROSSYPOTTU);
-        adjustHappiness(ROSSYPOTTU_HAPPINESS);
+        pet(ROSSYPOTTU_HAPPINESS);
         updateCoins(ROSSYPOTTU_COST);
     } else {
-        System_printf("No moni\n");
+        sendString("MSG1:NO_MONEY");
     }
 }

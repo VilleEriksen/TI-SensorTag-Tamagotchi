@@ -114,8 +114,6 @@ void sensorFxn(UArg arg0, UArg arg1) {
     while (1) {
         if (programState != OPT_INIT && programState != OPT_READ) {
             programState = GYRO_READ;
-            //i2cMPU = I2C_open(Board_I2C, &i2cMPUParams);
-            //time = (double)Clock_getTicks() / 100000.0;
 
             // MPU ask data
             mpu9250_get_data(&i2cMPU, &ax, &ay, &az, &gx, &gy, &gz);
@@ -127,14 +125,6 @@ void sensorFxn(UArg arg0, UArg arg1) {
             updateAvgArray(gyAvg, gy);
             updateAvgArray(gzAvg, gz);
 
-            // sprintf(printString, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n", time, axAvg->avg, ayAvg->avg, azAvg->avg, gxAvg->avg, gyAvg->avg, gzAvg->avg);
-            // System_printf(printString);
-
-            // sprintf(printString2, "%.5f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n\n", time, ax, ay, az, gx, gy, gz);
-            // System_printf(printString2);
-            // System_flush();
-
-            //I2C_close(i2cMPU);
 
             programState = DATA_READY;
         }
@@ -142,12 +132,6 @@ void sensorFxn(UArg arg0, UArg arg1) {
         if (gameActive) Task_sleep(33333 / Clock_tickPeriod);
         else Task_sleep(100000 / Clock_tickPeriod);
     }
-
-    // Program never gets here..
-    // MPU close i2c
-    // I2C_close(i2cMPU);
-    // MPU power off
-    // PIN_setOutputValue(hMpuPin,Board_MPU_POWER, Board_MPU_POWER_OFF);
 }
 
 void initMPU920() {

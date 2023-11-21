@@ -90,7 +90,6 @@ void displayTask(UArg arg0, UArg arg1) {
                    GrLineDrawV(pContext, gameParams.pipes2XPos, 0, gameParams.pipes2YPos - gameParams.pipesDistance);
                    GrLineDrawV(pContext, gameParams.pipes2XPos, SCREEN_FULL_DIM, gameParams.pipes2YPos + gameParams.pipesDistance);
 
-
                    // Player
                    GrCircleFill(pContext, PLAYER_X_POS, gameParams.playerYpos, 3);
                    //Display_print0(hDisplayLcd, 0, 0, scoreText);
