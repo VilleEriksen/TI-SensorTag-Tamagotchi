@@ -5,6 +5,7 @@
  *      Author: Ville
  */
 
+#include <main.h>
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 #include <ti/sysbios/knl/Clock.h>
@@ -12,7 +13,6 @@
 
 #include <stdio.h>
 #include <util/gestureArray.h>
-#include "empty.h"
 #include "music.h"
 #include "game.h"
 
@@ -29,6 +29,9 @@ extern bool gameActive;
 void activateGestureFxn(UArg arg0, UArg arg1) {
     while(1) {
         if (!gameActive) {
+            // Look at the average array, and activate the gestures accordingly
+
+            // The move up gesture is a lot quicker, so we will not look at the average
             if (gestureArrayContains(gestureAvg, MOVE_UP)) {
                playMovingUpSting();
                pet(1);

@@ -11,8 +11,8 @@
 #define SELECTED_ITEM "> "
 #define NORMAL_ITEM "  "
 
-void display_menuUp();
-void display_menuDown();
-void display_menuActivate();
+void menuUp();
+void menuDown();
+void menuActivate();
 
 #endif /* MENU_H_ */

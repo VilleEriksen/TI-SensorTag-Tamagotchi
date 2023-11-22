@@ -1,3 +1,4 @@
+#include <main.h>
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 #include <ti/sysbios/BIOS.h>
@@ -15,7 +16,6 @@
 #include "gyro.h"
 #include "util/avgArray.h"
 #include "sensors/mpu9250.h"
-#include "empty.h"
 #include "display.h"
 #include "game.h"
 
@@ -62,10 +62,7 @@ bool openingMPU = false;
 double time;
 
 void sensorFxn(UArg arg0, UArg arg1) {
-    //char printString[55];
-    //char printString2[55];
-
-    //float shake = 0;
+    // Modified from Lovelace gyro code
 
     currentDisplayMode = MESSANGE;
     strcpy(msgText, "Initializing MPU");
@@ -101,7 +98,6 @@ void sensorFxn(UArg arg0, UArg arg1) {
 
     System_printf("MPU9250: Setup and calibration OK\n");
     System_flush();
-    //I2C_close(i2cMPU);
     // Loop forever
 
     currentDisplayMode = MENU;

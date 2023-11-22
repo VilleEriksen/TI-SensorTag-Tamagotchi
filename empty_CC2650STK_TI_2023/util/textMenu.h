@@ -8,8 +8,8 @@
 #ifndef UTIL_TEXTMENU_H_
 #define UTIL_TEXTMENU_H_
 
+#include <foodFuncs.h>
 #include "music.h"
-#include "food_funcs.h"
 #include "game.h"
 #include "gyro.h"
 #include "lightSensor.h"

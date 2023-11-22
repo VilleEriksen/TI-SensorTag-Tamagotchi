@@ -36,6 +36,7 @@ bool updateDisplay = true;
 bool partialUpdateDisplay = false;
 
 void displayTask(UArg arg0, UArg arg1) {
+   // Modified from Lovelace display code
 
    // Initialize display
    Display_Params params;
@@ -77,6 +78,7 @@ void displayTask(UArg arg0, UArg arg1) {
 
                case MESSANGE:
                    Display_clear(hDisplayLcd);
+                   // Display the messange text in center
                    Display_print0(hDisplayLcd, 5, 8 - (strlen(msgText) / 2), msgText);
 
                    break;
@@ -92,7 +94,6 @@ void displayTask(UArg arg0, UArg arg1) {
 
                    // Player
                    GrCircleFill(pContext, PLAYER_X_POS, gameParams.playerYpos, 3);
-                   //Display_print0(hDisplayLcd, 0, 0, scoreText);
                    GrFlush(pContext);
 
                    break;
@@ -105,8 +106,10 @@ void displayTask(UArg arg0, UArg arg1) {
            displayUpdating = false;
        }
 
-       // Refresh rate of 30hz
-       Task_sleep(33333/Clock_tickPeriod);
+       // Refresh rate
+       if (currentDisplayMode == GAME) Task_sleep(33333/Clock_tickPeriod); // 30hz
+       else Task_sleep(100000/Clock_tickPeriod); // 10hz
+
    }
 }
 

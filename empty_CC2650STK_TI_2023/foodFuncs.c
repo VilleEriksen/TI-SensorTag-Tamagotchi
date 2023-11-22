@@ -5,9 +5,9 @@
  *      Author: Ville
  */
 
+#include <foodFuncs.h>
 #include <xdc/runtime/System.h>
 #include "communication.h"
-#include "food_funcs.h"
 
 #define SALMIAKKI 3
 #define RUISLEIPA 1

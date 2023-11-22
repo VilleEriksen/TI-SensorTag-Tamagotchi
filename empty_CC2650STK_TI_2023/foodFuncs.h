@@ -5,8 +5,8 @@
  *      Author: Ville
  */
 
-#ifndef FOOD_FUNCS_H_
-#define FOOD_FUNCS_H_
+#ifndef FOODFUNCS_H_
+#define FOODFUNCS_H_
 
 void feedSalmiakki();
 
@@ -22,4 +22,4 @@ void feedLanttukukko();
 
 void feedRossypottu();
 
-#endif /* FOOD_FUNCS_H_ */
+#endif /* FOODFUNCS_H_ */

@@ -1,4 +1,5 @@
 /* XDCtools files */
+#include <main.h>
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 
@@ -14,7 +15,6 @@
 #include "buzzer.h"
 #include "music.h"
 #include "communication.h"
-#include "empty.h"
 
 
 void stopMusic() {

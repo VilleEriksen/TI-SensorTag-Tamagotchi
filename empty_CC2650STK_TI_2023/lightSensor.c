@@ -6,6 +6,7 @@
  */
 
 /* C Standard library */
+#include <main.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -25,11 +26,9 @@
 #include <ti/drivers/power/PowerCC26XX.h>
 #include <ti/drivers/UART.h>
 
-
 /* Board Header files */
 #include "Board.h"
 #include "sensors/opt3001.h"
-#include "empty.h"
 #include "display.h"
 #include "util/avgArray.h"
 
@@ -53,6 +52,7 @@ char luxString[12];
 struct avgArray* luxAvg;
 
 void lightTaskFXn(UArg arg0, UArg arg1) {
+    // Modified from Lovelace ligth sensor code
 
     while (programState == GYRO_INIT) {
         Task_sleep(250000 / Clock_tickPeriod);

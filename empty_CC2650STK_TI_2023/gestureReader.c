@@ -5,6 +5,7 @@
  *      Author: Ville
  */
 
+#include <main.h>
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 #include <ti/sysbios/knl/Clock.h>
@@ -14,7 +15,6 @@
 #include "gestureReader.h"
 #include "util/avgArray.h"
 #include <util/gestureArray.h>
-#include "empty.h"
 #include "lightSensor.h"
 
 extern enum state1 programState;
@@ -52,9 +52,11 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
 
             shake = 0;
 
-            //shake += abs(gxAvg->avg - gx);
+            // Calculate shake by looking at the difference in current gyro vs averages
             shake += abs(gyAvg->avg - gy);
             shake += abs(gzAvg->avg - gz);
+
+            // Try to detect the current gesture, and add that to the gesture average array
             if (ligthInitalized) {
                 if(lux == 0) {
                     updateGestureArray(gestureAvg, PET);

@@ -17,7 +17,7 @@ extern bool musicPlaying;
 
 #define COMMSTACKSIZE 512
 char commTaskStack[COMMSTACKSIZE];
-char payload[128];
+char payload[16];
 
 bool beepMessage = false;
 
@@ -92,7 +92,6 @@ void commTaskFxn(UArg arg0, UArg arg1) {
            memset(payload,0,16);
            Receive6LoWPAN(&senderAddr, payload, 16);
            // check for beep message
-           //if(payload == "3254,beep") {
            if(strstr(payload, "3254,BEEP") != NULL) {
                playWaningBeep();
                System_printf(payload);

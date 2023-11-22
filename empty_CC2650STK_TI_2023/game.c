@@ -65,9 +65,10 @@ void gameFxn(UArg arg0, UArg arg1) {
                 startCount = false;
 
                 currentDisplayMode = MESSANGE;
-                //Task_sleep(100000 / Clock_tickPeriod);
 
+                // Show a countdown from 3
                 strcpy(msgText, "3");
+                Task_sleep(100000/Clock_tickPeriod);
                 updateDisplay = true;
                 Task_sleep(1000000 / Clock_tickPeriod);
                 strcpy(msgText, "2");
@@ -94,11 +95,11 @@ void gameFxn(UArg arg0, UArg arg1) {
 
                 playGameLoseSting();
 
+                // Show game over text and score
                 strcpy(msgText, "Game Over!");
                 updateDisplay = true;
                 Task_sleep(3000000 / Clock_tickPeriod);
                 sprintf(msgText, "Score: %d", gameParams.score);
-                //strcpy(msgText, "Score: XX");
                 updateDisplay = true;
                 Task_sleep(3000000 / Clock_tickPeriod);
 
@@ -108,14 +109,17 @@ void gameFxn(UArg arg0, UArg arg1) {
             }
 
             frame++;
+            // Slowly speed up game
             gameSpeed *= GAME_SPEED_MULT;
 
+            // Reduce the pipes gap slowly
             if (frame == 0 && gameParams.pipesDistance > PIPES_DIST_END) gameParams.pipesDistance--;
 
             // Update player pos
             playerYSpeed += (ay - yBias) * GYRO_MULT;
             playerYSpeed *= PLAYER_DRAG;
             playerY += playerYSpeed;
+            // Bounce player of hit screen edges
             if (playerY <= PLAYER_MIN_BOUND || playerY >= PLAYER_MAX_BOUND) playerYSpeed *= -1;
 
             gameParams.playerYpos = playerY;
@@ -158,8 +162,6 @@ void gameFxn(UArg arg0, UArg arg1) {
             updateDisplay = true;
         }
 
-        // Refresh rate 10hz
-        //Task_sleep(100000 / Clock_tickPeriod);
         Task_sleep((int)gameSpeed/Clock_tickPeriod);
     }
 }
