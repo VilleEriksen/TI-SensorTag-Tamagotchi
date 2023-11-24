@@ -21,7 +21,9 @@ char payload[16];
 
 bool beepMessage = false;
 
-void pet(uint8_t petAmount) {
+// Adjust pet need wirelessly
+// petAmount: Amount to adjust
+void pet(int8_t petAmount) {
    sprintf(payload, "PET:%d", 1);
    System_printf(payload);
    System_printf("\n");
@@ -30,6 +32,8 @@ void pet(uint8_t petAmount) {
    StartReceive6LoWPAN();
 }
 
+// Adjust exercise need wirelessly
+// exerciseAmount: Amount to adjust
 void exercise(uint8_t exerciseAmount) {
    sprintf(payload, "EXERCISE:%d", 1);
    System_printf(payload);
@@ -39,6 +43,8 @@ void exercise(uint8_t exerciseAmount) {
    StartReceive6LoWPAN();
 }
 
+// Update coins wirelessly
+// coinsAmount: Amount to adjust
 void updateCoins(int8_t coinsAmount) {
     coins -= coinsAmount;
     sprintf(payload, "MSG1:Coins:%d", coins);
@@ -49,6 +55,8 @@ void updateCoins(int8_t coinsAmount) {
     StartReceive6LoWPAN();
 }
 
+// Adjust happiness need wirelessly
+// happinessAmount: Amount to adjust
 void adjustHappiness(int8_t happinessAmount) {
     happiness += happinessAmount;
     sprintf(payload, "MSG1:Happiness:%d", happiness);
@@ -59,6 +67,8 @@ void adjustHappiness(int8_t happinessAmount) {
     StartReceive6LoWPAN();
 }
 
+// Adjust hunger need wirelessly
+// foodAmount: Amount to adjust
 void giveFood(uint8_t foodAmount) {
    sprintf(payload, "EAT:%d", foodAmount);
    System_printf(payload);
@@ -68,8 +78,9 @@ void giveFood(uint8_t foodAmount) {
    StartReceive6LoWPAN();
 }
 
+// Will send a string wirelessly
+// string: The string to send
 void sendString(char string[16]) {
-
    System_printf(string);
    System_printf("\n");
    System_flush();
@@ -77,7 +88,8 @@ void sendString(char string[16]) {
    StartReceive6LoWPAN();
 }
 
-void commTaskFxn(UArg arg0, UArg arg1) {
+// Inits the wireless sensor and listens for signals
+void commTaskFxn() {
 
    char payload[16];
    uint16_t senderAddr;
@@ -101,6 +113,7 @@ void commTaskFxn(UArg arg0, UArg arg1) {
    }
 }
 
+// Inits the communication task
 void initCommunication() {
     Init6LoWPAN();
 

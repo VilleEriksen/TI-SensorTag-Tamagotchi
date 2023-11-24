@@ -51,8 +51,8 @@ PIN_Config buttonConfig1[] = {
 //global state variables
 enum state1 programState = WAITING;
 
+// Control the menu with buttons
 void buttonFxn(PIN_Handle handle, PIN_Id pinId) {
-    // Control the menu with byttons
     switch (pinId) {
         case BUTTON_0_ID:
             menuActivate();

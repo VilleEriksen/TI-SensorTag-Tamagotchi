@@ -20,6 +20,7 @@
 #include "communication.h"
 #include "game.h"
 
+// An array of random numbers, because TI RTOS does not support random numbers
 const uint8_t randArr[] = {
     66, 27, 72, 73, 51, 26, 74, 73, 74, 67,
     51, 50, 50, 39, 57, 29, 41, 63, 69, 44,
@@ -57,7 +58,8 @@ int i2 = 1;
 float gameSpeed = 100000.0;
 char frame = 0;
 
-void gameFxn(UArg arg0, UArg arg1) {
+// Handle the game loop
+void gameFxn() {
 
     while (1) {
         if (gameActive) {
@@ -166,6 +168,7 @@ void gameFxn(UArg arg0, UArg arg1) {
     }
 }
 
+// Inits the game variables
 void startGame() {
     gameParams.pipes1XPos = SCREEN_FULL_DIM;
     gameParams.pipes1YPos = SCREEN_HALF_DIM;
@@ -184,6 +187,7 @@ void startGame() {
     gameActive = true;
 }
 
+// Inits the game task
 void initGame() {
     Task_Handle gameTask;
     Task_Params gameTaskParams;

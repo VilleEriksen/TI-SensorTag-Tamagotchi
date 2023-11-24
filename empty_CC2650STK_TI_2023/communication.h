@@ -11,11 +11,11 @@
 #define COMMUNICATION_H_
 
 
-void commTaskFxn(UArg arg0, UArg arg1);
+void commTaskFxn();
 void initCommunication();
 
 void giveFood(uint8_t foodAmount);
-void pet(uint8_t petAmount);
+void pet(int8_t petAmount);
 void exercise(uint8_t exerciseAmount);
 void updateCoins(int8_t coinsAmount);
 void sendString(char string[16]);

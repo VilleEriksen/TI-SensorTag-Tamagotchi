@@ -36,14 +36,13 @@ extern float ax, ay, az, gx, gy, gz;
 
 struct gestureArray* gestureAvg;
 
-char printString[16];
-
 #define STACKSIZE 16
 Char taskStack[STACKSIZE];
 
 enum gestures currentGesture = NONE;
 
-void detectGestureFxn(UArg arg0, UArg arg1) {
+// Detects gestures from gathered sensor data
+void detectGestureFxn() {
     float shake;
 
     while(1) {
@@ -94,6 +93,7 @@ void detectGestureFxn(UArg arg0, UArg arg1) {
     }
 }
 
+// Inits the gesture reader task
 void initGestureReader() {
     Task_Handle task;
     Task_Params taskParams;

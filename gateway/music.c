@@ -34,7 +34,8 @@ bool musicPlaying = false;
 uint16_t songI;
 bool loopMusic;
 
-void musixFxn(UArg arg0) {
+// Plays music node by node
+void musixFxn() {
     if (songI >= songStruct->length) {
         if (loopMusic) {
             // Return to the starting pointer.
@@ -54,6 +55,7 @@ void musixFxn(UArg arg0) {
     songI++;
 }
 
+// Inits the music task
 void initMusic() {
     // Buzzer
     hBuzzer = PIN_open(&sBuzzer, cBuzzer);
@@ -65,6 +67,9 @@ void initMusic() {
     musicParams.startFlag = TRUE;
 }
 
+// Starts music
+// song:         The song to play
+// loopMusicVar: Should the song loop
 void startMusic(struct song *songVar, bool loopMusicVar) {
     if (musicPlaying || !musicEnabled) return;
 
@@ -83,6 +88,7 @@ void startMusic(struct song *songVar, bool loopMusicVar) {
     musicPlaying = true;
 }
 
+// Stops the music
 void stopMusic() {
     if (musicPlaying) {
         buzzerClose();
@@ -91,6 +97,7 @@ void stopMusic() {
     }
 }
 
+// Toggles music on/off
 void toggleMusic() {
     musicEnabled = !musicEnabled;
 }

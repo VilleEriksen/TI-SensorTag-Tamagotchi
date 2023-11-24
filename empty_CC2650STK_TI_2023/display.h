@@ -16,7 +16,7 @@
 
 enum displayMode { MENU, MESSANGE, GAME };
 
-void displayTask(UArg arg0, UArg arg1);
+void displayTask();
 void initDisplay();
 
 #endif /* DISPLAY_H_ */

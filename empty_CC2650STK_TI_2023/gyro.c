@@ -59,10 +59,9 @@ float ax, ay, az, gx, gy, gz;
 
 bool openingMPU = false;
 
-double time;
-
-void sensorFxn(UArg arg0, UArg arg1) {
-    // Modified from Lovelace gyro code
+// Reads gyro and updates the average arrays
+// Modified from Lovelace gyro code
+void sensorFxn() {
 
     currentDisplayMode = MESSANGE;
     strcpy(msgText, "Initializing MPU");
@@ -130,6 +129,7 @@ void sensorFxn(UArg arg0, UArg arg1) {
     }
 }
 
+// Inits the gyro task
 void initMPU920() {
     Task_Handle task;
     Task_Params taskParams;

@@ -8,11 +8,14 @@
 #include <stdlib.h>
 #include "textMenu.h"
 
+// Move menu by steps
+// steps: Steps to move
 void menu_moveBy(int steps) {
     currentMenu->selectedI = (currentMenu->selectedI + steps) % currentMenu->size;
     currentMenu->selectedItem = currentMenu->menuItems + currentMenu->selectedI;
 }
 
+// Activate selected item in menu
 void menu_activate() {
     if (currentMenu->selectedItem->hasFunc) {
         currentMenu->selectedItem->nextFunc();
@@ -22,10 +25,12 @@ void menu_activate() {
     }
 }
 
+// Return to base menu
 void menu_reset() {
     currentMenu = baseMenu;
 }
 
+// Init menu
 void menu_init() {
     baseMenu = &MAIN_MENU;
     currentMenu = baseMenu;

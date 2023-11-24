@@ -47,12 +47,12 @@ extern char msgText[17];
 double ambientLight = -1000.0;
 
 double lux;
-char luxString[12];
 
 struct avgArray* luxAvg;
 
-void lightTaskFXn(UArg arg0, UArg arg1) {
-    // Modified from Lovelace ligth sensor code
+// Reads the ligth sensor and updates the average list
+// Modified from Lovelace ligth sensor code
+void lightTaskFXn() {
 
     while (programState == GYRO_INIT) {
         Task_sleep(250000 / Clock_tickPeriod);
@@ -97,7 +97,7 @@ void lightTaskFXn(UArg arg0, UArg arg1) {
     }
 }
 
-
+// Inits the ligth sensor task
 void initOPT3001() {
     Task_Handle lightTaskHandle;
     Task_Params lightTaskParams;

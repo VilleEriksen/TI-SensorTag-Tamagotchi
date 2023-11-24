@@ -8,7 +8,7 @@
 #ifndef GESTUREACTIVATOR_H_
 #define GESTUREACTIVATOR_H_
 
-void activateGestureFxn(UArg arg0, UArg arg1);
+void activateGestureFxn();
 void initGestureActivator();
 
 #endif /* GESTUREACTIVATOR_H_ */

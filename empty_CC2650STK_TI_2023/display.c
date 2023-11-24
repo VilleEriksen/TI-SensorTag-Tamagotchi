@@ -35,7 +35,8 @@ bool displayUpdating = false;
 bool updateDisplay = true;
 bool partialUpdateDisplay = false;
 
-void displayTask(UArg arg0, UArg arg1) {
+// Updates the display according to the display mode.
+void displayTask() {
    // Modified from Lovelace display code
 
    // Initialize display
@@ -113,6 +114,7 @@ void displayTask(UArg arg0, UArg arg1) {
    }
 }
 
+// Inits the display task
 void initDisplay() {
     Task_Params displayTaskParams;
     Task_Handle displayTaskHandle;

@@ -17,6 +17,7 @@ extern bool updateDisplay;
 extern bool partialUpdateDisplay;
 extern enum displayMode currentDisplayMode;
 
+// Move up in menu
 void menuUp() {
     if (currentDisplayMode == MENU && !displayUpdating) {
         menu_moveBy(-1);
@@ -24,6 +25,7 @@ void menuUp() {
     }
 }
 
+// Move down in menu
 void menuDown() {
     if (currentDisplayMode == MENU && !displayUpdating) {
         menu_moveBy(1);
@@ -31,6 +33,7 @@ void menuDown() {
     }
 }
 
+// Activate selected menu item
 void menuActivate() {
     if (currentDisplayMode == MENU && !displayUpdating) {
         menu_activate(1);

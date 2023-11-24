@@ -26,7 +26,8 @@ extern enum state1 programState;
 extern struct gestureArray* gestureAvg;
 extern bool gameActive;
 
-void activateGestureFxn(UArg arg0, UArg arg1) {
+// Determines what gestures to activate from the detected gestures
+void activateGestureFxn() {
     while(1) {
         if (!gameActive) {
             // Look at the average array, and activate the gestures accordingly
@@ -62,6 +63,7 @@ void activateGestureFxn(UArg arg0, UArg arg1) {
     }
 }
 
+// Inits the gesture activator task
 void initGestureActivator() {
     Task_Handle task2;
     Task_Params taskParams2;

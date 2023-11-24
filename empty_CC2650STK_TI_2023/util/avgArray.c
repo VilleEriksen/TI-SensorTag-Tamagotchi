@@ -9,6 +9,9 @@
 #include "avgArray.h"
 #include "Board.h"
 
+// Creates an average array, and allocates memory for it.
+// size:         Number of elements
+// startVal:     Value to allocate the array with
 struct avgArray* createAvgArray(uint8_t size, float startVal) {
     // Create a pointer to the array, and allocate memory for it.
     struct avgArray* arr = (struct avgArray*)malloc(sizeof(struct avgArray));
@@ -32,11 +35,16 @@ struct avgArray* createAvgArray(uint8_t size, float startVal) {
 }
 
 
+// Frees average array from memory
+// arr: Array to be freed
 void freeAvgArray(struct avgArray* arr) {
     free(arr->arr);
     free(arr);
 }
 
+// Updates average array items and avg
+// arr: Array to be updated
+// val: Value to update array with
 void updateAvgArray(struct avgArray *arr, float val) {
     // Read the value from array at i.
     *(arr->arr +  arr->i) = val;
@@ -46,6 +54,9 @@ void updateAvgArray(struct avgArray *arr, float val) {
     arr->avg = calcAvg(arr->arr, arr->size);
 }
 
+// Calculates avg in an array
+// arr:  Array to calculate from
+// size: Number of elements in array
 float calcAvg(float* arr, uint8_t size) {
     float avg = 0.0;
     uint8_t i;

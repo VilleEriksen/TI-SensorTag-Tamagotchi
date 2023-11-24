@@ -18,7 +18,7 @@
 #define DRINK_A_TRESHOLD 0.75
 #define DRINK_G_TRESHOLD 20
 
-void detectGestureFxn(UArg arg0, UArg arg1);
+void detectGestureFxn();
 void initGestureReader();
 
 

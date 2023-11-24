@@ -9,6 +9,9 @@
 #include <util/gestureArray.h>
 #include "Board.h"
 
+// Creates an average gesture array, and allocates memory for it.
+// size:         Number of elements
+// startGesture: Gesture to allocate the array with
 struct gestureArray* createGestureArray(uint8_t size, enum gestures startGesure) {
     // Create a pointer to the array, and allocate memory for it.
     struct gestureArray* arr = (struct gestureArray*)malloc(sizeof(struct gestureArray));
@@ -31,12 +34,16 @@ struct gestureArray* createGestureArray(uint8_t size, enum gestures startGesure)
     return arr;
 }
 
-
+// Frees average gesture array from memory
+// arr: Array to be freed
 void freeGestureArray(struct gestureArray* arr) {
     free(arr->arr);
     free(arr);
 }
 
+// Updates average gesture array items and avg
+// gestureArray: Array to be updated
+// gesture:      Gesture to update array with
 void updateGestureArray(struct gestureArray *arr, enum gestures gesture) {
     // Read the value from array at i.
     *(arr->arr +  arr->i) = gesture;
@@ -46,6 +53,9 @@ void updateGestureArray(struct gestureArray *arr, enum gestures gesture) {
     arr->avg = calcGestureArrayAvg(arr->arr, arr->size);
 }
 
+// Calculates avg item in an array
+// arr:  Array to calculate from
+// size: Nlements in array
 enum gestures calcGestureArrayAvg(enum gestures* arr, uint8_t size) {
     enum gestures avg = NONE;
     uint8_t maxCount = 0;
@@ -71,6 +81,9 @@ enum gestures calcGestureArrayAvg(enum gestures* arr, uint8_t size) {
     return avg;
 }
 
+// Checks if array contain item
+// arr:     Array to check from
+// gesture: Gesture to check for
 bool gestureArrayContains(struct gestureArray* arr, enum gestures gesture) {
     uint8_t i;
 

@@ -42,7 +42,7 @@ struct publicGameParams {
     int score;
 };
 
-void gameFxn(UArg arg0, UArg arg1);
+void gameFxn();
 void startGame();
 void initGame();
 

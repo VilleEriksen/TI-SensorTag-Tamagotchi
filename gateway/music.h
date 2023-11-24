@@ -68,7 +68,7 @@ static uint16_t GAME_LOSE_STRING_NOTES[] = {
 
 static struct song GAME_LOSE_STING = { &GAME_LOSE_STRING_NOTES[0], 6, 125000 };
 
-void musixFxn(UArg arg0);
+void musixFxn();
 void initMusic();
 void startMusic(struct song *songVar, bool loopMusicVar);
 void stopMusic();

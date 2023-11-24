@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../wireless/CWC_CC2650_154Drv.c \
@@ -19,14 +21,14 @@ OBJS += \
 ./wireless/comm_lib.obj 
 
 OBJS__QUOTED += \
-"wireless/CWC_CC2650_154Drv.obj" \
-"wireless/ERRORS.obj" \
-"wireless/comm_lib.obj" 
+"wireless\CWC_CC2650_154Drv.obj" \
+"wireless\ERRORS.obj" \
+"wireless\comm_lib.obj" 
 
 C_DEPS__QUOTED += \
-"wireless/CWC_CC2650_154Drv.d" \
-"wireless/ERRORS.d" \
-"wireless/comm_lib.d" 
+"wireless\CWC_CC2650_154Drv.d" \
+"wireless\ERRORS.d" \
+"wireless\comm_lib.d" 
 
 C_SRCS__QUOTED += \
 "../wireless/CWC_CC2650_154Drv.c" \
