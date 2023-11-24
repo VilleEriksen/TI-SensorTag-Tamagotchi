@@ -68,14 +68,12 @@ static struct menu FOOD_MENU = { &FOOD_MENU_ITEMS[0], &FOOD_MENU_ITEMS[0], 0, 7 
 
 static struct menuItem OPTIONS_MENU_ITEMS[] = {
     { .itemText = "Toggle audio", .hasFunc = true, .nextFunc = toggleMusic },
-    { .itemText = "Death off",    .hasFunc = true },
-    { .itemText = "Start new",    .hasFunc = true },
     { .itemText = "Init MPU",     .hasFunc = true,  .nextFunc = initMPU920 },
     { .itemText = "Init OPT",     .hasFunc = true,  .nextFunc = initOPT3001 },
     { .itemText = "Back",         .hasFunc = true, .nextFunc = menu_reset },
 };
 
-static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[0], 0, 6 };
+static struct menu OPTIONS_MENU = { &OPTIONS_MENU_ITEMS[0], &OPTIONS_MENU_ITEMS[0], 0, 4 };
 
 // Main menu
 
